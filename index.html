@@ -5,6 +5,7 @@
 <title>Our Story ❤️</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
+  /* BODY + BACKGROUND */
   body {
     margin: 0;
     font-family: Arial, sans-serif;
@@ -26,12 +27,7 @@
     text-align: center;
     position: relative;
     overflow: hidden;
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 1s ease;
   }
-
-  .hero.show { opacity: 1; transform: translateY(0); }
 
   .hero::before {
     content: "";
@@ -45,12 +41,18 @@
   .hero h1 {
     font-size: 3rem;
     margin: 0 20px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 1s ease;
   }
 
   .hero p {
     font-size: 1.2rem;
     max-width: 500px;
     margin: 20px auto 0;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 1s ease 0.5s;
   }
 
   .scroll-hint {
@@ -66,46 +68,38 @@
     50% { transform: translateY(-10px);}
   }
 
-  /* CHAPTER INTRO – smaller height */
+  /* CHAPTER INTRO */
   .chapter-intro {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 30vh;
+    height: 40vh; /* smaller */
     text-align: center;
     font-size: 1.1rem;
     color: #fff;
     background: rgba(0,0,0,0.2);
     border-radius: 20px;
-    margin: 30px auto;
+    margin: 50px auto;
     max-width: 700px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.3);
     opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.8s ease;
+    transform: translateY(30px);
+    transition: all 1s ease;
   }
 
-  .chapter-intro.show { opacity: 1; transform: translateY(0); }
-  .chapter-intro h2 { font-size: 1.8rem; margin-bottom: 10px; }
-  .chapter-intro p { font-size: 1.05rem; }
-
-  /* STAR FIELD ON PHOTOS */
-  .star {
-    position: absolute;
-    width: 2px;
-    height: 2px;
-    background: white;
-    border-radius: 50%;
-    opacity: 0.8;
-    animation: twinkle infinite ease-in-out;
-    pointer-events: none;
-    filter: drop-shadow(0 0 3px white);
+  .chapter-intro.show {
+    opacity: 1;
+    transform: translateY(0);
   }
 
-  @keyframes twinkle {
-    0%, 100% { opacity: 0.8; transform: scale(1);}
-    50% { opacity: 0.2; transform: scale(0.8);}
+  .chapter-intro h2 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+  }
+
+  .chapter-intro p {
+    font-size: 1.1rem;
   }
 
   /* FLOATING HEARTS */
@@ -124,18 +118,18 @@
     100% { transform: translateY(-120vh); opacity: 0; }
   }
 
-  /* STORY BLOCKS */
+  /* PHOTO BLOCKS */
   .photo-block {
-    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 40px;
-    margin: 50px 20px;
+    margin: 70px 20px;
     flex-wrap: wrap;
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(40px);
     transition: all 0.8s ease;
+    position: relative;
   }
 
   .photo-block.show { opacity: 1; transform: translateY(0); }
@@ -156,6 +150,7 @@
   .photo-block img:nth-child(4) { transform: rotate(3deg);}
   .photo-block img:nth-child(5) { transform: rotate(-2deg);}
   .photo-block img:nth-child(6) { transform: rotate(2deg);}
+  /* continue for all photos as needed */
 
   .caption {
     max-width: 400px;
@@ -171,13 +166,11 @@
 
   /* FINAL QUESTION */
   .final { margin: 80px 20px 40px; font-size: 1.4rem; text-align:center; }
-
   .buttons {
     position: relative;
     height: 200px;
     margin-bottom: 100px;
   }
-
   button {
     padding: 15px 35px;
     font-size: 1.1rem;
@@ -186,17 +179,31 @@
     cursor: pointer;
     position: absolute;
   }
-
   #yes { background-color: #4CAF50; color:white; left:30%; }
   #no { background-color: #f44336; color:white; left:55%; }
+
+  /* STARS ON PHOTO BLOCKS */
+  .star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: twinkle infinite ease-in-out;
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.8; transform: scale(1); }
+    50% { opacity: 0.2; transform: scale(0.8); }
+  }
 </style>
 </head>
 <body>
 
 <!-- HERO SECTION -->
 <div class="hero">
-  <h1>Our Story ❤️</h1>
-  <p>These are some moments I think about more than I admit, especially with you, HERNAME.</p>
+  <h1 id="hero-text">Our Story ❤️</h1>
+  <p id="intro-text">These are moments I cherish with you, HERNAME.</p>
   <div class="scroll-hint">⬇️ Scroll down to see our story</div>
 </div>
 
@@ -245,9 +252,9 @@
 </div>
 
 <script>
+  // No button escape effect
   const noButton = document.getElementById("no");
   const buttonsContainer = document.querySelector(".buttons");
-
   noButton.addEventListener("mouseover", () => {
     const padding = 10;
     const containerWidth = buttonsContainer.clientWidth;
@@ -260,6 +267,7 @@
     noButton.style.top = y + "px";
   });
 
+  // Yes button
   function yesClicked() {
     document.body.innerHTML = `
       <h1 style="margin-top:25vh; text-align:center;">You just made me really happy, HERNAME ❤️</h1>
@@ -269,34 +277,30 @@
     `;
   }
 
-  // IntersectionObserver for hero, chapter, and photos
+  // Fade-in scroll for chapter and photos
+  const blocks = document.querySelectorAll('.photo-block');
   const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if(entry.isIntersecting){
-        entry.target.classList.add('show');
-
-        // Add stars only for photo blocks
-        if(entry.target.classList.contains('photo-block')){
-          const block = entry.target;
-          for(let i=0;i<30;i++){
-            const star = document.createElement("div");
-            star.className = "star";
-            star.style.left = Math.random()*100 + "%";
-            star.style.top = Math.random()*100 + "%";
-            star.style.animationDuration = (Math.random()*3 + 2) + "s";
-            block.appendChild(star);
-          }
-        }
-      }
-    });
+    entries.forEach(entry => { if(entry.isIntersecting) entry.target.classList.add('show'); });
   }, { threshold: 0.2 });
+  blocks.forEach(block => {
+    observer.observe(block);
 
-  // Observe hero
-  observer.observe(document.querySelector('.hero'));
-  // Observe chapter
-  observer.observe(document.querySelector('.chapter-intro'));
-  // Observe photo blocks
-  document.querySelectorAll('.photo-block').forEach(block => observer.observe(block));
+    // Add stars to each photo block
+    for(let i=0;i<30;i++){
+      const star = document.createElement("div");
+      star.className = "star";
+      star.style.left = Math.random() * 100 + "%";
+      star.style.top = Math.random() * 100 + "%";
+      star.style.animationDuration = (Math.random()*3 + 2) + "s";
+      block.appendChild(star);
+    }
+  });
+
+  const chapter = document.querySelector('.chapter-intro');
+  const chapterObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => { if(entry.isIntersecting) entry.target.classList.add('show'); });
+  }, { threshold: 0.2 });
+  chapterObserver.observe(chapter);
 
   // Floating hearts
   setInterval(() => {
@@ -308,6 +312,7 @@
     document.body.appendChild(heart);
     setTimeout(() => heart.remove(), 6000);
   }, 500);
+
 </script>
 </body>
 </html>
