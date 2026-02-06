@@ -65,6 +65,37 @@
     50% { transform: translateY(-10px);}
   }
 
+  /* CHAPTER INTRO */
+  .chapter-intro {
+    text-align: center;
+    padding: 100px 20px 50px;
+    font-family: 'Arial', sans-serif;
+    font-size: 1.3rem;
+    color: #fff;
+    background: rgba(0,0,0,0.2);
+    border-radius: 20px;
+    margin: 50px auto;
+    max-width: 800px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 1s ease;
+  }
+
+  .chapter-intro.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .chapter-intro h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+
+  .chapter-intro p {
+    font-size: 1.1rem;
+  }
+
   /* FLOATING HEARTS */
   .heart {
     position: fixed;
@@ -161,6 +192,12 @@
   <div class="scroll-hint">⬇️ Scroll down to see our story</div>
 </div>
 
+<!-- CHAPTER INTRO -->
+<div class="chapter-intro">
+  <h2>Here our journey begins… 💫</h2>
+  <p>A story of laughter, love, and unforgettable memories.</p>
+</div>
+
 <!-- PHOTOS -->
 <div class="photo-block"><img src="photo1.jpg"><div class="caption">This is where it started feeling real.</div></div>
 <div class="photo-block"><img src="photo2.jpg"><div class="caption">I remember thinking how easy this felt.</div></div>
@@ -235,6 +272,17 @@
     });
   }, { threshold: 0.2 });
   blocks.forEach(block => observer.observe(block));
+
+  // Chapter intro fade-in
+  const chapter = document.querySelector('.chapter-intro');
+  const chapterObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('show');
+      }
+    });
+  }, { threshold: 0.2 });
+  chapterObserver.observe(chapter);
 
   // Floating hearts
   setInterval(() => {
