@@ -15,11 +15,16 @@
     position: relative;
   }
 
-  /* STAR FIELD */
-  body::before { content: ""; position: fixed; top:0; left:0; width:100%; height:100%; z-index:-2; }
+  /* STAR FIELD BELOW HERO */
+  #star-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+  }
 
   .star {
-    position: fixed;
+    position: absolute;
     width: 2px;
     height: 2px;
     background: white;
@@ -58,18 +63,12 @@
   .hero h1 {
     font-size: 3rem;
     margin: 0 20px;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 1s ease;
   }
 
   .hero p {
     font-size: 1.2rem;
     max-width: 500px;
     margin: 20px auto 0;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 1s ease 0.5s;
   }
 
   .scroll-hint {
@@ -105,19 +104,10 @@
     transition: all 1s ease;
   }
 
-  .chapter-intro.show {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  .chapter-intro.show { opacity: 1; transform: translateY(0); }
 
-  .chapter-intro h2 {
-    font-size: 2rem;
-    margin-bottom: 15px;
-  }
-
-  .chapter-intro p {
-    font-size: 1.1rem;
-  }
+  .chapter-intro h2 { font-size: 2rem; margin-bottom: 15px; }
+  .chapter-intro p { font-size: 1.1rem; }
 
   /* FLOATING HEARTS */
   .heart {
@@ -206,10 +196,13 @@
 
 <!-- HERO SECTION -->
 <div class="hero">
-  <h1 id="hero-text"></h1>
-  <p id="intro-text"></p>
+  <h1>Our Story ❤️</h1>
+  <p>These are some moments I think about more than I admit, especially with you, HERNAME.</p>
   <div class="scroll-hint">⬇️ Scroll down to see our story</div>
 </div>
+
+<!-- STAR FIELD BELOW HERO -->
+<div id="star-container"></div>
 
 <!-- CHAPTER INTRO -->
 <div class="chapter-intro">
@@ -285,31 +278,16 @@
     setTimeout(() => heart.remove(), 6000);
   }, 500);
 
-  // Star field
+  // Star field below hero
+  const starContainer = document.getElementById("star-container");
   for(let i=0;i<100;i++){
     const star = document.createElement("div");
     star.className = "star";
     star.style.left = Math.random()*100 + "vw";
     star.style.top = Math.random()*100 + "vh";
     star.style.animationDuration = (Math.random()*3 + 2) + "s";
-    document.body.appendChild(star);
+    starContainer.appendChild(star);
   }
-
-  // Hero typing effect
-  const heroText = document.getElementById("hero-text");
-  const introText = document.getElementById("intro-text");
-  const name = "HERNAME"; // replace with her name
-  const heroMessage = `Our Story ❤️`;
-  const introMessage = `These are some moments I think about more than I admit, especially with you, ${name}.`;
-  let i = 0, j = 0;
-  function typeHero() { 
-    if(i < heroMessage.length){ heroText.innerHTML += heroMessage.charAt(i); i++; setTimeout(typeHero, 100); }
-    else typeIntro();
-  }
-  function typeIntro(){ 
-    if(j < introMessage.length){ introText.innerHTML += introMessage.charAt(j); j++; setTimeout(typeIntro, 40); } 
-  }
-  typeHero();
 </script>
 </body>
 </html>
