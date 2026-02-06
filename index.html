@@ -26,7 +26,12 @@
     text-align: center;
     position: relative;
     overflow: hidden;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 1s ease;
   }
+
+  .hero.show { opacity: 1; transform: translateY(0); }
 
   .hero::before {
     content: "";
@@ -40,12 +45,6 @@
   .hero h1 {
     font-size: 3rem;
     margin: 0 20px;
-    animation: float 3s ease-in-out infinite;
-  }
-
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-15px); }
   }
 
   .hero p {
@@ -73,7 +72,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 30vh; /* smaller than before */
+    height: 30vh;
     text-align: center;
     font-size: 1.1rem;
     color: #fff;
@@ -127,7 +126,7 @@
 
   /* STORY BLOCKS */
   .photo-block {
-    position: relative; /* for stars */
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -270,34 +269,34 @@
     `;
   }
 
-  // Fade-in scroll
-  const blocks = document.querySelectorAll('.photo-block');
+  // IntersectionObserver for hero, chapter, and photos
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if(entry.isIntersecting){
         entry.target.classList.add('show');
 
-        // Add stars only when photo block is visible
-        const block = entry.target;
-        for(let i=0;i<30;i++){
-          const star = document.createElement("div");
-          star.className = "star";
-          star.style.left = Math.random()*100 + "%";
-          star.style.top = Math.random()*100 + "%";
-          star.style.animationDuration = (Math.random()*3 + 2) + "s";
-          block.appendChild(star);
+        // Add stars only for photo blocks
+        if(entry.target.classList.contains('photo-block')){
+          const block = entry.target;
+          for(let i=0;i<30;i++){
+            const star = document.createElement("div");
+            star.className = "star";
+            star.style.left = Math.random()*100 + "%";
+            star.style.top = Math.random()*100 + "%";
+            star.style.animationDuration = (Math.random()*3 + 2) + "s";
+            block.appendChild(star);
+          }
         }
       }
     });
   }, { threshold: 0.2 });
-  blocks.forEach(block => observer.observe(block));
 
-  // Chapter intro fade-in
-  const chapter = document.querySelector('.chapter-intro');
-  const chapterObserver = new IntersectionObserver(entries => {
-    entries.forEach(entry => { if(entry.isIntersecting) entry.target.classList.add('show'); });
-  }, { threshold: 0.2 });
-  chapterObserver.observe(chapter);
+  // Observe hero
+  observer.observe(document.querySelector('.hero'));
+  // Observe chapter
+  observer.observe(document.querySelector('.chapter-intro'));
+  // Observe photo blocks
+  document.querySelectorAll('.photo-block').forEach(block => observer.observe(block));
 
   // Floating hearts
   setInterval(() => {
