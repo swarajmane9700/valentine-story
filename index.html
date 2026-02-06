@@ -15,29 +15,6 @@
     position: relative;
   }
 
-  /* STAR FIELD BELOW HERO */
-  #star-container {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    z-index: -2;
-  }
-
-  .star {
-    position: absolute;
-    width: 2px;
-    height: 2px;
-    background: white;
-    border-radius: 50%;
-    opacity: 0.8;
-    animation: twinkle infinite ease-in-out;
-  }
-
-  @keyframes twinkle {
-    0%, 100% { opacity: 0.8; transform: scale(1);}
-    50% { opacity: 0.2; transform: scale(0.8);}
-  }
-
   /* HERO SECTION */
   .hero {
     height: 100vh;
@@ -63,6 +40,12 @@
   .hero h1 {
     font-size: 3rem;
     margin: 0 20px;
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
   }
 
   .hero p {
@@ -84,30 +67,47 @@
     50% { transform: translateY(-10px);}
   }
 
-  /* CHAPTER INTRO */
+  /* CHAPTER INTRO – smaller height */
   .chapter-intro {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 50vh;
+    height: 30vh; /* smaller than before */
     text-align: center;
     font-size: 1.1rem;
     color: #fff;
     background: rgba(0,0,0,0.2);
     border-radius: 20px;
-    margin: 50px auto;
+    margin: 30px auto;
     max-width: 700px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.3);
     opacity: 0;
-    transform: translateY(30px);
-    transition: all 1s ease;
+    transform: translateY(20px);
+    transition: all 0.8s ease;
   }
 
   .chapter-intro.show { opacity: 1; transform: translateY(0); }
+  .chapter-intro h2 { font-size: 1.8rem; margin-bottom: 10px; }
+  .chapter-intro p { font-size: 1.05rem; }
 
-  .chapter-intro h2 { font-size: 2rem; margin-bottom: 15px; }
-  .chapter-intro p { font-size: 1.1rem; }
+  /* STAR FIELD ON PHOTOS */
+  .star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: twinkle infinite ease-in-out;
+    pointer-events: none;
+    filter: drop-shadow(0 0 3px white);
+  }
+
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.8; transform: scale(1);}
+    50% { opacity: 0.2; transform: scale(0.8);}
+  }
 
   /* FLOATING HEARTS */
   .heart {
@@ -127,14 +127,15 @@
 
   /* STORY BLOCKS */
   .photo-block {
+    position: relative; /* for stars */
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 40px;
-    margin: 70px 20px;
+    margin: 50px 20px;
     flex-wrap: wrap;
     opacity: 0;
-    transform: translateY(40px);
+    transform: translateY(30px);
     transition: all 0.8s ease;
   }
 
@@ -156,7 +157,6 @@
   .photo-block img:nth-child(4) { transform: rotate(3deg);}
   .photo-block img:nth-child(5) { transform: rotate(-2deg);}
   .photo-block img:nth-child(6) { transform: rotate(2deg);}
-  /* continue for 25 photos as needed */
 
   .caption {
     max-width: 400px;
@@ -200,9 +200,6 @@
   <p>These are some moments I think about more than I admit, especially with you, HERNAME.</p>
   <div class="scroll-hint">⬇️ Scroll down to see our story</div>
 </div>
-
-<!-- STAR FIELD BELOW HERO -->
-<div id="star-container"></div>
 
 <!-- CHAPTER INTRO -->
 <div class="chapter-intro">
@@ -256,7 +253,22 @@
   // Fade-in scroll
   const blocks = document.querySelectorAll('.photo-block');
   const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => { if(entry.isIntersecting) entry.target.classList.add('show'); });
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('show');
+
+        // Add stars only when photo block is visible
+        const block = entry.target;
+        for(let i=0;i<30;i++){
+          const star = document.createElement("div");
+          star.className = "star";
+          star.style.left = Math.random()*100 + "%";
+          star.style.top = Math.random()*100 + "%";
+          star.style.animationDuration = (Math.random()*3 + 2) + "s";
+          block.appendChild(star);
+        }
+      }
+    });
   }, { threshold: 0.2 });
   blocks.forEach(block => observer.observe(block));
 
@@ -277,17 +289,6 @@
     document.body.appendChild(heart);
     setTimeout(() => heart.remove(), 6000);
   }, 500);
-
-  // Star field below hero
-  const starContainer = document.getElementById("star-container");
-  for(let i=0;i<100;i++){
-    const star = document.createElement("div");
-    star.className = "star";
-    star.style.left = Math.random()*100 + "vw";
-    star.style.top = Math.random()*100 + "vh";
-    star.style.animationDuration = (Math.random()*3 + 2) + "s";
-    starContainer.appendChild(star);
-  }
 </script>
 </body>
 </html>
