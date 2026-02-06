@@ -16,6 +16,32 @@
     position: relative;
   }
 
+  /* STAR BACKGROUND (behind all content except hero) */
+  #star-background {
+    position: fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    pointer-events: none;
+    z-index: -1; /* behind everything */
+  }
+
+  .star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: twinkle infinite ease-in-out;
+  }
+
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.8; transform: scale(1); }
+    50% { opacity: 0.2; transform: scale(0.8); }
+  }
+
   /* HERO SECTION */
   .hero {
     height: 100vh;
@@ -74,7 +100,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 40vh; /* smaller */
+    height: 40vh;
     text-align: center;
     font-size: 1.1rem;
     color: #fff;
@@ -129,7 +155,6 @@
     opacity: 0;
     transform: translateY(40px);
     transition: all 0.8s ease;
-    position: relative;
   }
 
   .photo-block.show { opacity: 1; transform: translateY(0); }
@@ -181,21 +206,6 @@
   }
   #yes { background-color: #4CAF50; color:white; left:30%; }
   #no { background-color: #f44336; color:white; left:55%; }
-
-  /* STARS ON PHOTO BLOCKS */
-  .star {
-    position: absolute;
-    width: 2px;
-    height: 2px;
-    background: white;
-    border-radius: 50%;
-    opacity: 0.8;
-    animation: twinkle infinite ease-in-out;
-  }
-  @keyframes twinkle {
-    0%, 100% { opacity: 0.8; transform: scale(1); }
-    50% { opacity: 0.2; transform: scale(0.8); }
-  }
 </style>
 </head>
 <body>
@@ -206,6 +216,9 @@
   <p id="intro-text">These are moments I cherish with you, HERNAME.</p>
   <div class="scroll-hint">⬇️ Scroll down to see our story</div>
 </div>
+
+<!-- STAR BACKGROUND FOR THE JOURNEY -->
+<div id="star-background"></div>
 
 <!-- CHAPTER INTRO -->
 <div class="chapter-intro">
@@ -267,7 +280,6 @@
     noButton.style.top = y + "px";
   });
 
-  // Yes button
   function yesClicked() {
     document.body.innerHTML = `
       <h1 style="margin-top:25vh; text-align:center;">You just made me really happy, HERNAME ❤️</h1>
@@ -282,19 +294,7 @@
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => { if(entry.isIntersecting) entry.target.classList.add('show'); });
   }, { threshold: 0.2 });
-  blocks.forEach(block => {
-    observer.observe(block);
-
-    // Add stars to each photo block
-    for(let i=0;i<30;i++){
-      const star = document.createElement("div");
-      star.className = "star";
-      star.style.left = Math.random() * 100 + "%";
-      star.style.top = Math.random() * 100 + "%";
-      star.style.animationDuration = (Math.random()*3 + 2) + "s";
-      block.appendChild(star);
-    }
-  });
+  blocks.forEach(block => observer.observe(block));
 
   const chapter = document.querySelector('.chapter-intro');
   const chapterObserver = new IntersectionObserver(entries => {
@@ -312,6 +312,17 @@
     document.body.appendChild(heart);
     setTimeout(() => heart.remove(), 6000);
   }, 500);
+
+  // Stars behind the journey (not hero)
+  const starContainer = document.getElementById("star-background");
+  for(let i=0;i<100;i++){
+    const star = document.createElement("div");
+    star.className = "star";
+    star.style.left = Math.random() * 100 + "%";
+    star.style.top = Math.random() * 100 + "%";
+    star.style.animationDuration = (Math.random()*3 + 2) + "s";
+    starContainer.appendChild(star);
+  }
 
 </script>
 </body>
