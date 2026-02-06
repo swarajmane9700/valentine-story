@@ -156,50 +156,64 @@
     <button id="no">No 🙄</button>
   </div>
 
-  <script>
-    /* NO BUTTON RUNS AWAY */
-    const noButton = document.getElementById("no");
-    noButton.addEventListener("mouseover", () => {
-      const padding = 20;
-      const x = Math.random() * (window.innerWidth - noButton.offsetWidth - padding);
-      const y = Math.random() * (window.innerHeight - noButton.offsetHeight - padding);
-      noButton.style.left = x + "px";
-      noButton.style.top = y + "px";
+<script>
+  const noButton = document.getElementById("no");
+  const buttonsContainer = document.querySelector(".buttons");
+
+  buttonsContainer.style.position = "relative";
+
+  noButton.addEventListener("mouseover", () => {
+    const padding = 10;
+
+    const containerWidth = buttonsContainer.clientWidth;
+    const containerHeight = buttonsContainer.clientHeight;
+
+    const buttonWidth = noButton.offsetWidth;
+    const buttonHeight = noButton.offsetHeight;
+
+    const maxX = containerWidth - buttonWidth - padding;
+    const maxY = containerHeight - buttonHeight - padding;
+
+    const x = Math.random() * maxX;
+    const y = Math.random() * maxY;
+
+    noButton.style.left = x + "px";
+    noButton.style.top = y + "px";
+  });
+
+  function yesClicked() {
+    document.body.innerHTML = `
+      <h1 style="margin-top:25vh;">You just made me really happy, HERNAME ❤️</h1>
+      <p style="font-size:1.2rem;">I can't wait to make more memories with you.</p>
+      <p style="font-size:1.1rem;">Until I can ask you in person…</p>
+      <p style="font-size:1.1rem;">Happy Valentine's Day 💌</p>
+    `;
+  }
+
+  /* FADE-IN ON SCROLL */
+  const blocks = document.querySelectorAll('.photo-block');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('show');
+      }
     });
+  }, { threshold: 0.2 });
 
-    /* YES SURPRISE MESSAGE */
-    function yesClicked() {
-      document.body.innerHTML = `
-        <h1 style="margin-top:25vh;">You just made me really happy, HERNAME ❤️</h1>
-        <p style="font-size:1.2rem;">I can't wait to make more memories with you.</p>
-        <p style="font-size:1.1rem;">Until I can ask you in person…</p>
-        <p style="font-size:1.1rem;">Happy Valentine's Day 💌</p>
-      `;
-    }
+  blocks.forEach(block => observer.observe(block));
 
-    /* FADE-IN ON SCROLL */
-    const blocks = document.querySelectorAll('.photo-block');
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('show');
-        }
-      });
-    }, { threshold: 0.2 });
+  /* FLOATING HEARTS */
+  setInterval(() => {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = Math.random() * 15 + 15 + "px";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 6000);
+  }, 500);
+</script>
 
-    blocks.forEach(block => observer.observe(block));
-
-    /* FLOATING HEARTS */
-    setInterval(() => {
-      const heart = document.createElement("div");
-      heart.className = "heart";
-      heart.innerHTML = "❤️";
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.fontSize = Math.random() * 15 + 15 + "px";
-      document.body.appendChild(heart);
-      setTimeout(() => heart.remove(), 6000);
-    }, 500);
-  </script>
 
 </body>
 </html>
