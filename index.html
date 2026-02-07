@@ -14,9 +14,10 @@
     position: relative;
   }
 
-  /* HERO */
+  /* HERO SECTION */
   .hero {
     height: 100vh;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -24,50 +25,118 @@
     text-align: center;
     position: relative;
     overflow: hidden;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 1s ease;
   }
+
+  .hero.show { opacity: 1; transform: translateY(0); }
 
   .hero::before {
     content: "";
     position: absolute;
-    width: 100%;
-    height: 100%;
-    background: url('hero-photo.jpg') center/cover no-repeat;
-    filter: blur(8px) brightness(0.5);
+    top:0; left:0;
+    width:100%; height:100%;
+    background: url('hero-photo.jpg') center center / cover no-repeat;
+    filter: blur(8px) brightness(0.6);
     z-index: -1;
   }
 
   .hero h1 {
     font-size: 3rem;
-    margin: 0;
+    margin: 0 20px;
   }
 
   .hero p {
     font-size: 1.2rem;
     max-width: 500px;
+    margin: 20px auto 0;
   }
 
   .scroll-hint {
     position: absolute;
     bottom: 20px;
+    font-size: 1.2rem;
     opacity: 0.7;
     animation: bounce 1.5s infinite;
   }
 
   @keyframes bounce {
-    0%,100% { transform: translateY(0);}
-    50% { transform: translateY(-10px);}
+    0%, 100% { transform: translateY(0);} 
+    50% { transform: translateY(-10px);} 
   }
 
-  /* STORY BLOCK */
+  /* CHAPTER INTRO */
+  .chapter-intro {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 30vh;
+    text-align: center;
+    font-size: 1.1rem;
+    background: rgba(0,0,0,0.2);
+    border-radius: 20px;
+    margin: 30px auto;
+    max-width: 700px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.8s ease;
+  }
+
+  .chapter-intro.show { opacity: 1; transform: translateY(0); }
+
+  /* STARS */
+  .star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: twinkle infinite ease-in-out;
+    pointer-events: none;
+    filter: drop-shadow(0 0 4px white);
+    z-index: 0;
+  }
+
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.8; transform: scale(1);} 
+    50% { opacity: 0.2; transform: scale(0.8);} 
+  }
+
+  /* HEARTS */
+  .heart {
+    position: fixed;
+    bottom: -20px;
+    font-size: 20px;
+    animation: floatUp 6s linear infinite;
+    opacity: 0.7;
+    pointer-events: none;
+  }
+
+  @keyframes floatUp {
+    0% { transform: translateY(0); opacity: 0; }
+    20% { opacity: 0.8; }
+    100% { transform: translateY(-120vh); opacity: 0; }
+  }
+
+  /* PHOTO BLOCKS */
   .photo-block {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 40px;
-    margin: 60px 20px;
+    margin: 50px 20px;
     flex-wrap: wrap;
-    position: relative;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease;
   }
+
+  .photo-block.show { opacity: 1; transform: translateY(0); }
 
   .photo-block:nth-child(even) {
     flex-direction: row-reverse;
@@ -77,32 +146,38 @@
     width: 100%;
     max-width: 450px;
     border-radius: 20px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    position: relative;
+    z-index: 1;
   }
 
   .caption {
     max-width: 400px;
     font-size: 1.2rem;
+    text-align: left;
+    position: relative;
+    z-index: 1;
   }
 
   @media (max-width: 768px) {
-    .photo-block {
-      flex-direction: column !important;
-      text-align: center;
+    .photo-block, .photo-block:nth-child(even) {
+      flex-direction: column;
     }
+
+    .caption { text-align: center; }
   }
 
   /* FINAL */
   .final {
-    text-align: center;
-    margin-top: 80px;
-    font-size: 1.5rem;
+    margin: 80px 20px 40px;
+    font-size: 1.4rem;
+    text-align:center;
   }
 
   .buttons {
     position: relative;
     height: 200px;
-    margin-top: 30px;
+    margin-bottom: 100px;
   }
 
   button {
@@ -114,263 +189,147 @@
     position: absolute;
   }
 
-  #yes {
-    background-color: #4CAF50;
-    color: white;
-    left: 30%;
-  }
-
-  #no {
-    background-color: #f44336;
-    color: white;
-    left: 55%;
-  }
-
-  /* STARS */
-  .star {
-    position: absolute;
-    width: 2px;
-    height: 2px;
-    background: white;
-    border-radius: 50%;
-    opacity: 0.8;
-    animation: twinkle infinite ease-in-out;
-  }
-
-  @keyframes twinkle {
-    0%,100% { opacity: 0.8;}
-    50% { opacity: 0.2;}
-  }
-
-  /* HEARTS */
-  .heart {
-    position: fixed;
-    bottom: -20px;
-    font-size: 20px;
-    animation: floatUp 6s linear infinite;
-    opacity: 0.7;
-  }
-
-  @keyframes floatUp {
-    0% { transform: translateY(0); opacity: 0;}
-    20% { opacity: 0.8;}
-    100% { transform: translateY(-120vh); opacity: 0;}
-  }
-
+  #yes { background-color: #4CAF50; color:white; left:30%; }
+  #no { background-color: #f44336; color:white; left:55%; }
 </style>
 </head>
 <body>
 
+<!-- HERO -->
 <div class="hero">
   <h1>Our Story ❤️</h1>
   <p>These are some moments I think about more than I admit, especially with you, HERNAME.</p>
-  <div class="scroll-hint">Scroll down ↓</div>
+  <div class="scroll-hint">⬇️ Scroll down</div>
 </div>
 
-<!-- PHOTOS -->
-<div class="photo-block">
-  <img src="photo1.jpg">
-  <div class="caption">Memory 1</div>
+<!-- INTRO -->
+<div class="chapter-intro">
+  <h2>Here our journey begins… 💫</h2>
+  <p>A story of laughter, love, and unforgettable memories.</p>
 </div>
 
-<div class="photo-block">
-  <img src="photo2.jpg">
-  <div class="caption">Memory 2</div>
-</div>
+<!-- PHOTOS 1–25 -->
+<div class="photo-block"><img src="photo1.jpg"><div class="caption">Memory 1</div></div>
+<div class="photo-block"><img src="photo2.jpg"><div class="caption">Memory 2</div></div>
+<div class="photo-block"><img src="photo3.jpg"><div class="caption">Memory 3</div></div>
+<div class="photo-block"><img src="photo4.jpg"><div class="caption">Memory 4</div></div>
+<div class="photo-block"><img src="photo5.jpg"><div class="caption">Memory 5</div></div>
+<div class="photo-block"><img src="photo6.jpg"><div class="caption">Memory 6</div></div>
+<div class="photo-block"><img src="photo7.jpg"><div class="caption">Memory 7</div></div>
+<div class="photo-block"><img src="photo8.jpg"><div class="caption">Memory 8</div></div>
+<div class="photo-block"><img src="photo9.jpg"><div class="caption">Memory 9</div></div>
+<div class="photo-block"><img src="photo10.jpg"><div class="caption">Memory 10</div></div>
+<div class="photo-block"><img src="photo11.jpg"><div class="caption">Memory 11</div></div>
+<div class="photo-block"><img src="photo12.jpg"><div class="caption">Memory 12</div></div>
+<div class="photo-block"><img src="photo13.jpg"><div class="caption">Memory 13</div></div>
+<div class="photo-block"><img src="photo14.jpg"><div class="caption">Memory 14</div></div>
+<div class="photo-block"><img src="photo15.jpg"><div class="caption">Memory 15</div></div>
+<div class="photo-block"><img src="photo16.jpg"><div class="caption">Memory 16</div></div>
+<div class="photo-block"><img src="photo17.jpg"><div class="caption">Memory 17</div></div>
+<div class="photo-block"><img src="photo18.jpg"><div class="caption">Memory 18</div></div>
+<div class="photo-block"><img src="photo19.jpg"><div class="caption">Memory 19</div></div>
+<div class="photo-block"><img src="photo20.jpg"><div class="caption">Memory 20</div></div>
+<div class="photo-block"><img src="photo21.jpg"><div class="caption">Memory 21</div></div>
+<div class="photo-block"><img src="photo22.jpg"><div class="caption">Memory 22</div></div>
+<div class="photo-block"><img src="photo23.jpg"><div class="caption">Memory 23</div></div>
+<div class="photo-block"><img src="photo24.jpg"><div class="caption">Memory 24</div></div>
+<div class="photo-block"><img src="photo25.jpg"><div class="caption">Memory 25</div></div>
 
-<div class="photo-block">
-  <img src="photo3.jpg">
-  <div class="caption">Memory 3</div>
-</div>
-
-<div class="photo-block">
-  <img src="photo4.jpg">
-  <div class="caption">Memory 4</div>
-</div>
-
-<div class="photo-block">
-  <img src="photo5.jpg">
-  <div class="caption">Memory 5</div>
-</div>
-
-<div class="photo-block">
-  <img src="photo6.jpg">
-  <div class="caption">Memory 6</div>
-</div>
-
-<div class="photo-block">
-  <img src="photo7.jpg">
-  <div class="caption">Memory 7</div>
-</div>
-
-<div class="photo-block">
-  <img src="photo8.jpg">
-  <div class="caption">Memory 8</div>
-</div>
-
-<div class="photo-block">
-  <img src="photo9.jpg">
-  <div class="caption">Memory 9</div>
-</div>
-
-<div class="photo-block">
-  <img src="photo10.jpg">
-  <div class="caption">Memory 10</div>
-</div>
-
-<div class="photo-block">
-  <img src="photo11.jpg">
-  <div class="caption">Memory 11</div>
-</div>
-
-<div class="photo-block">
-  <img src="photo12.jpg">
-  <div class="caption">Memory 12</div>
-</div>
-
-<div class="photo-block">
-  <img src="photo13.jpg">
-  <div class="caption">Memory 13</div>
-</div>
-
-<div class="photo-block">
-  <img src="photo14.jpg">
-  <div class="caption">Memory 14</div>
-</div>
-
-<div class="photo-block">
-  <img src="photo15.jpg">
-  <div class="caption">Memory 15</div>
-</div>
-
-<div class="photo-block">
-  <img src="photo16.jpg">
-  <div class="caption">Memory 16</div>
-</div>
-
-<div class="photo-block">
-  <img src="photo17.jpg">
-  <div class="caption">Memory 17</div>
-</div>
-
-<div class="photo-block">
-  <img src="photo18.jpg">
-  <div class="caption">Memory 18</div>
-</div>
-
-<div class="photo-block">
-  <img src="photo19.jpg">
-  <div class="caption">Memory 19</div>
-</div>
-
-<div class="photo-block">
-  <img src="photo20.jpg">
-  <div class="caption">Memory 20</div>
-</div>
-
-<div class="photo-block">
-  <img src="photo21.jpg">
-  <div class="caption">Memory 21</div>
-</div>
-
-<div class="photo-block">
-  <img src="photo22.jpg">
-  <div class="caption">Memory 22</div>
-</div>
-
-<div class="photo-block">
-  <img src="photo23.jpg">
-  <div class="caption">Memory 23</div>
-</div>
-
-<div class="photo-block">
-  <img src="photo24.jpg">
-  <div class="caption">Memory 24</div>
-</div>
-
-<div class="photo-block">
-  <img src="photo25.jpg">
-  <div class="caption">Memory 25</div>
-</div>
-
+<!-- QUESTION -->
 <div class="final">
-  Will you be my Valentine? 💖
+Will you be my Valentine? 💖
 </div>
 
 <div class="buttons">
-  <button id="yes" onclick="yesClicked()">Yes 😍</button>
-  <button id="no">No 🙄</button>
+<button id="yes" onclick="yesClicked()">Yes 😍</button>
+<button id="no">No 🙄</button>
 </div>
 
 <script>
 
 const noButton = document.getElementById("no");
-const container = document.querySelector(".buttons");
+const buttonsContainer = document.querySelector(".buttons");
 
 noButton.addEventListener("mouseover", () => {
 
-  const maxX = container.clientWidth - noButton.offsetWidth;
-  const maxY = container.clientHeight - noButton.offsetHeight;
+const padding = 10;
+const containerWidth = buttonsContainer.clientWidth;
+const containerHeight = buttonsContainer.clientHeight;
+const buttonWidth = noButton.offsetWidth;
+const buttonHeight = noButton.offsetHeight;
 
-  noButton.style.left = Math.random() * maxX + "px";
-  noButton.style.top = Math.random() * maxY + "px";
+const x = Math.random() * (containerWidth - buttonWidth - padding);
+const y = Math.random() * (containerHeight - buttonHeight - padding);
+
+noButton.style.left = x + "px";
+noButton.style.top = y + "px";
 
 });
 
-function yesClicked(){
+function yesClicked() {
 
-document.body.innerHTML = `
-<h1 style="margin-top:25vh;text-align:center;">
-You just made me really happy, HERNAME ❤️
-</h1>
+ document.body.innerHTML = `
 
-<p style="text-align:center;font-size:1.2rem;">
-I can't wait to make more memories with you.
-</p>
+ <h1 style="margin-top:25vh;text-align:center;">You just made me really happy, HERNAME ❤️</h1>
 
-`;
+ <p style="text-align:center;">Happy Valentine's Day 💌</p>
+
+ `;
 
 }
 
-/* floating hearts */
-setInterval(()=>{
+const observer = new IntersectionObserver(entries => {
+ entries.forEach(entry => {
+
+ if(entry.isIntersecting){
+
+ entry.target.classList.add('show');
+
+ if(entry.target.classList.contains('photo-block')){
+
+ const block = entry.target;
+
+ for(let i=0;i<30;i++){
+
+ const star = document.createElement("div");
+
+ star.className = "star";
+
+ star.style.left = Math.random()*100 + "%";
+
+ star.style.top = Math.random()*100 + "%";
+
+ star.style.animationDuration = (Math.random()*3+2)+"s";
+
+ block.appendChild(star);
+
+ }
+
+ }
+
+ }
+
+ });
+
+}, { threshold: 0.2 });
+
+observer.observe(document.querySelector('.hero'));
+observer.observe(document.querySelector('.chapter-intro'));
+document.querySelectorAll('.photo-block').forEach(block => observer.observe(block));
+
+setInterval(() => {
 
 const heart = document.createElement("div");
+heart.className = "heart";
+heart.innerHTML = "❤️";
+heart.style.left = Math.random()*100 + "vw";
+heart.style.fontSize = Math.random()*15 + 15 + "px";
 
-heart.className="heart";
+ document.body.appendChild(heart);
 
-heart.innerHTML="❤️";
-
-heart.style.left=Math.random()*100+"vw";
-
-heart.style.fontSize=(Math.random()*15+15)+"px";
-
-document.body.appendChild(heart);
-
-setTimeout(()=>heart.remove(),6000);
+ setTimeout(()=>heart.remove(),6000);
 
 },500);
-
-/* stars */
-document.querySelectorAll(".photo-block").forEach(block=>{
-
-for(let i=0;i<20;i++){
-
-const star=document.createElement("div");
-
-star.className="star";
-
-star.style.left=Math.random()*100+"%";
-
-star.style.top=Math.random()*100+"%";
-
-star.style.animationDuration=(Math.random()*3+2)+"s";
-
-block.appendChild(star);
-
-}
-
-});
 
 </script>
 
