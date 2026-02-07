@@ -15,18 +15,23 @@
     position: relative;
   }
 
-  /* STAR FIELD */
-  body::before { content: ""; position: fixed; top:0; left:0; width:100%; height:100%; z-index:-2; }
+    // Star field (fixed: stars only below hero, not on hero)
+  const heroHeight = document.querySelector(".hero").offsetHeight;
 
-  .star {
-    position: fixed;
-    width: 2px;
-    height: 2px;
-    background: white;
-    border-radius: 50%;
-    opacity: 0.8;
-    animation: twinkle infinite ease-in-out;
+  for(let i=0;i<100;i++){
+    const star = document.createElement("div");
+    star.className = "star";
+
+    star.style.left = Math.random()*100 + "vw";
+
+    // place stars ONLY below hero section
+    star.style.top = (heroHeight + Math.random() * (document.body.scrollHeight - heroHeight)) + "px";
+
+    star.style.animationDuration = (Math.random()*3 + 2) + "s";
+
+    document.body.appendChild(star);
   }
+
 
   @keyframes twinkle {
     0%, 100% { opacity: 0.8; transform: scale(1);}
