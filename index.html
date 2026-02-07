@@ -5,7 +5,6 @@
 <title>Our Story ❤️</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-  /* ---------------- BODY + HERO ---------------- */
   body {
     margin: 0;
     font-family: Arial, sans-serif;
@@ -16,6 +15,7 @@
     position: relative;
   }
 
+  /* HERO SECTION */
   .hero {
     height: 100vh;
     width: 100%;
@@ -26,14 +26,19 @@
     text-align: center;
     position: relative;
     overflow: hidden;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 1s ease;
   }
 
+  .hero.show { opacity: 1; transform: translateY(0); }
+
   .hero::before {
-    content:"";
-    position:absolute;
+    content: "";
+    position: absolute;
     top:0; left:0; width:100%; height:100%;
     background: url('hero-photo.jpg') center/cover no-repeat;
-    filter: brightness(0.6);
+    filter: blur(8px) brightness(0.6);
     z-index: -1;
   }
 
@@ -57,74 +62,79 @@
   }
 
   @keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
+    0%, 100% { transform: translateY(0);}
+    50% { transform: translateY(-10px);}
   }
 
-  /* ---------------- JOURNEY + STAR BACKGROUND ---------------- */
-  #journey {
-    position: relative;
-  }
-
-  #star-background {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: -1;
-  }
-
-  @keyframes twinkle {
-    0%,100%{opacity:0.8; transform: scale(1);}
-    50%{opacity:0.2; transform: scale(0.8);}
-  }
-
-  /* ---------------- CHAPTER INTRO ---------------- */
+  /* CHAPTER INTRO – smaller height */
   .chapter-intro {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 40vh;
+    height: 30vh;
     text-align: center;
     font-size: 1.1rem;
     color: #fff;
     background: rgba(0,0,0,0.2);
     border-radius: 20px;
-    margin: 50px auto;
+    margin: 30px auto;
     max-width: 700px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.3);
     opacity: 0;
-    transform: translateY(30px);
-    transition: all 1s ease;
+    transform: translateY(20px);
+    transition: all 0.8s ease;
   }
 
-  .chapter-intro.show {
-    opacity: 1;
-    transform: translateY(0);
+  .chapter-intro.show { opacity: 1; transform: translateY(0); }
+  .chapter-intro h2 { font-size: 1.8rem; margin-bottom: 10px; }
+  .chapter-intro p { font-size: 1.05rem; }
+
+  /* STAR FIELD ON PHOTOS */
+  .star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: twinkle infinite ease-in-out;
+    pointer-events: none;
+    filter: drop-shadow(0 0 3px white);
   }
 
-  .chapter-intro h2 {
-    font-size: 2rem;
-    margin-bottom: 15px;
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.8; transform: scale(1);}
+    50% { opacity: 0.2; transform: scale(0.8);}
   }
 
-  .chapter-intro p {
-    font-size: 1.1rem;
+  /* FLOATING HEARTS */
+  .heart {
+    position: fixed;
+    bottom: -20px;
+    font-size: 20px;
+    animation: floatUp 6s linear infinite;
+    opacity: 0.7;
+    pointer-events: none;
   }
 
-  /* ---------------- PHOTOS ---------------- */
+  @keyframes floatUp {
+    0% { transform: translateY(0); opacity: 0; }
+    20% { opacity: 0.8; }
+    100% { transform: translateY(-120vh); opacity: 0; }
+  }
+
+  /* STORY BLOCKS */
   .photo-block {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 40px;
-    margin: 70px 20px;
+    margin: 50px 20px;
     flex-wrap: wrap;
     opacity: 0;
-    transform: translateY(40px);
+    transform: translateY(30px);
     transition: all 0.8s ease;
   }
 
@@ -139,13 +149,13 @@
     transition: transform 0.5s;
   }
 
-  .photo-block img:nth-child(1){transform: rotate(-2deg);}
-  .photo-block img:nth-child(2){transform: rotate(2deg);}
-  .photo-block img:nth-child(3){transform: rotate(-3deg);}
-  .photo-block img:nth-child(4){transform: rotate(3deg);}
-  .photo-block img:nth-child(5){transform: rotate(-2deg);}
-  .photo-block img:nth-child(6){transform: rotate(2deg);}
-  /* ... continue as needed */
+  /* Tilt photos alternately */
+  .photo-block img:nth-child(1) { transform: rotate(-2deg);}
+  .photo-block img:nth-child(2) { transform: rotate(2deg);}
+  .photo-block img:nth-child(3) { transform: rotate(-3deg);}
+  .photo-block img:nth-child(4) { transform: rotate(3deg);}
+  .photo-block img:nth-child(5) { transform: rotate(-2deg);}
+  .photo-block img:nth-child(6) { transform: rotate(2deg);}
 
   .caption {
     max-width: 400px;
@@ -153,78 +163,67 @@
     text-align: left;
   }
 
-  @media(max-width:768px){
-    .photo-block, .photo-block:nth-child(even){flex-direction:column;}
-    .caption{text-align:center;}
-    .photo-block img{max-width:90%;}
+  @media (max-width: 768px) {
+    .photo-block, .photo-block:nth-child(even) { flex-direction: column; }
+    .caption { text-align: center; }
+    .photo-block img { max-width: 90%; }
   }
 
-  /* ---------------- FINAL QUESTION ---------------- */
-  .final{
-    margin: 80px 20px 40px;
-    font-size:1.4rem;
-    text-align:center;
+  /* FINAL QUESTION */
+  .final { margin: 80px 20px 40px; font-size: 1.4rem; text-align:center; }
+
+  .buttons {
+    position: relative;
+    height: 200px;
+    margin-bottom: 100px;
   }
 
-  .buttons{
-    position:relative;
-    height:200px;
-    margin-bottom:100px;
+  button {
+    padding: 15px 35px;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    position: absolute;
   }
 
-  button{
-    padding:15px 35px;
-    font-size:1.1rem;
-    border:none;
-    border-radius:30px;
-    cursor:pointer;
-    position:absolute;
-  }
-
-  #yes{background-color:#4CAF50;color:white;left:30%;}
-  #no{background-color:#f44336;color:white;left:55%;}
+  #yes { background-color: #4CAF50; color:white; left:30%; }
+  #no { background-color: #f44336; color:white; left:55%; }
 </style>
 </head>
 <body>
 
-<!-- HERO -->
+<!-- HERO SECTION -->
 <div class="hero">
   <h1>Our Story ❤️</h1>
-  <p>These are moments I cherish with you, HERNAME.</p>
+  <p>These are some moments I think about more than I admit, especially with you, HERNAME.</p>
   <div class="scroll-hint">⬇️ Scroll down to see our story</div>
 </div>
 
-<!-- JOURNEY + STAR BACKGROUND -->
-<div id="journey">
-  <div id="star-background"></div>
+<!-- CHAPTER INTRO -->
+<div class="chapter-intro">
+  <h2>Here our journey begins… 💫</h2>
+  <p>A story of laughter, love, and unforgettable memories.</p>
+</div>
 
-  <!-- CHAPTER INTRO -->
-  <div class="chapter-intro">
-    <h2>Here our journey begins… 💫</h2>
-    <p>A story of laughter, love, and unforgettable memories.</p>
-  </div>
+<!-- PHOTOS -->
+<div class="photo-block"><img src="photo1.jpg"><div class="caption">This is where it started feeling real.</div></div>
+<div class="photo-block"><img src="photo2.jpg"><div class="caption">I remember thinking how easy this felt.</div></div>
+<div class="photo-block"><img src="photo3.jpg"><div class="caption">Still smiling about this moment.</div></div>
+<div class="photo-block"><img src="photo4.jpg"><div class="caption">One of those moments I didn’t want to rush.</div></div>
+<div class="photo-block"><img src="photo5.jpg"><div class="caption">This moment stays with me, <strong>HERNAME</strong>.</div></div>
 
-  <!-- PHOTOS -->
-  <div class="photo-block"><img src="photo1.jpg"><div class="caption">This is where it started feeling real.</div></div>
-  <div class="photo-block"><img src="photo2.jpg"><div class="caption">I remember thinking how easy this felt.</div></div>
-  <div class="photo-block"><img src="photo3.jpg"><div class="caption">Still smiling about this moment.</div></div>
-  <div class="photo-block"><img src="photo4.jpg"><div class="caption">One of those moments I didn’t want to rush.</div></div>
-  <div class="photo-block"><img src="photo5.jpg"><div class="caption">This moment stays with me, <strong>HERNAME</strong>.</div></div>
-  <!-- continue photo6 to photo25 similarly -->
-
-  <!-- FINAL QUESTION -->
-  <div class="final">
-    So before this becomes just another memory…<br><br>
-    Will you be my Valentine? 💖
-  </div>
-  <div class="buttons">
-    <button id="yes" onclick="yesClicked()">Yes 😍</button>
-    <button id="no">No 🙄</button>
-  </div>
+<!-- FINAL QUESTION -->
+<div class="final">
+  So before this becomes just another memory…<br><br>
+  Will you be my Valentine? 💖
+</div>
+<div class="buttons">
+  <button id="yes" onclick="yesClicked()">Yes 😍</button>
+  <button id="no">No 🙄</button>
 </div>
 
 <script>
-  // ---------------- NO BUTTON ESCAPE ----------------
   const noButton = document.getElementById("no");
   const buttonsContainer = document.querySelector(".buttons");
 
@@ -234,13 +233,13 @@
     const containerHeight = buttonsContainer.clientHeight;
     const buttonWidth = noButton.offsetWidth;
     const buttonHeight = noButton.offsetHeight;
-    const x = Math.random()*(containerWidth - buttonWidth - padding);
-    const y = Math.random()*(containerHeight - buttonHeight - padding);
+    const x = Math.random() * (containerWidth - buttonWidth - padding);
+    const y = Math.random() * (containerHeight - buttonHeight - padding);
     noButton.style.left = x + "px";
     noButton.style.top = y + "px";
   });
 
-  function yesClicked(){
+  function yesClicked() {
     document.body.innerHTML = `
       <h1 style="margin-top:25vh; text-align:center;">You just made me really happy, HERNAME ❤️</h1>
       <p style="font-size:1.2rem; text-align:center;">I can't wait to make more memories with you.</p>
@@ -249,42 +248,45 @@
     `;
   }
 
-  // ---------------- FADE-IN ON SCROLL ----------------
-  const blocks = document.querySelectorAll('.photo-block');
-  const chapter = document.querySelector('.chapter-intro');
-
+  // IntersectionObserver for hero, chapter, and photos
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if(entry.isIntersecting){
         entry.target.classList.add('show');
+
+        // Add stars only for photo blocks
+        if(entry.target.classList.contains('photo-block')){
+          const block = entry.target;
+          for(let i=0;i<30;i++){
+            const star = document.createElement("div");
+            star.className = "star";
+            star.style.left = Math.random()*100 + "%";
+            star.style.top = Math.random()*100 + "%";
+            star.style.animationDuration = (Math.random()*3 + 2) + "s";
+            block.appendChild(star);
+          }
+        }
       }
     });
   }, { threshold: 0.2 });
 
-  blocks.forEach(block => observer.observe(block));
-  observer.observe(chapter);
+  // Observe hero
+  observer.observe(document.querySelector('.hero'));
+  // Observe chapter
+  observer.observe(document.querySelector('.chapter-intro'));
+  // Observe photo blocks
+  document.querySelectorAll('.photo-block').forEach(block => observer.observe(block));
 
-  // ---------------- FLOATING HEARTS ----------------
-  setInterval(()=>{
+  // Floating hearts
+  setInterval(() => {
     const heart = document.createElement("div");
     heart.className = "heart";
     heart.innerHTML = "❤️";
-    heart.style.left = Math.random()*100+"vw";
-    heart.style.fontSize = Math.random()*15+15+"px";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = Math.random() * 15 + 15 + "px";
     document.body.appendChild(heart);
-    setTimeout(()=>heart.remove(),6000);
-  },500);
-
-  // ---------------- STAR BACKGROUND ----------------
-  const starBackground = document.getElementById("star-background");
-  for(let i=0;i<150;i++){
-    const star = document.createElement("div");
-    star.className = "star";
-    star.style.left = Math.random()*100 + "vw";
-    star.style.top = Math.random()*100 + "vh";
-    star.style.animationDuration = (Math.random()*3 + 2) + "s";
-    starBackground.appendChild(star);
-  }
+    setTimeout(() => heart.remove(), 6000);
+  }, 500);
 </script>
 </body>
 </html>
