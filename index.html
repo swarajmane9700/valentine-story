@@ -258,6 +258,7 @@
 <script>
   const noButton = document.getElementById("no");
   const buttonsContainer = document.querySelector(".buttons");
+  const heroSection = document.querySelector(".hero");
 
   noButton.addEventListener("mouseover", () => {
     const padding = 10;
@@ -283,18 +284,22 @@
   // Fade-in scroll
   const blocks = document.querySelectorAll('.photo-block');
   const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => { if(entry.isIntersecting) entry.target.classList.add('show'); });
+    entries.forEach(entry => {
+      if(entry.isIntersecting) entry.target.classList.add('show');
+    });
   }, { threshold: 0.2 });
   blocks.forEach(block => observer.observe(block));
 
   // Chapter intro fade-in
   const chapter = document.querySelector('.chapter-intro');
   const chapterObserver = new IntersectionObserver(entries => {
-    entries.forEach(entry => { if(entry.isIntersecting) entry.target.classList.add('show'); });
+    entries.forEach(entry => {
+      if(entry.isIntersecting) entry.target.classList.add('show');
+    });
   }, { threshold: 0.2 });
   chapterObserver.observe(chapter);
 
-  // Floating hearts
+  // Floating hearts (unchanged)
   setInterval(() => {
     const heart = document.createElement("div");
     heart.className = "heart";
@@ -305,30 +310,47 @@
     setTimeout(() => heart.remove(), 6000);
   }, 500);
 
-  // Star field
+  // Star field — hide stars inside hero section only
   for(let i=0;i<100;i++){
     const star = document.createElement("div");
     star.className = "star";
     star.style.left = Math.random()*100 + "vw";
     star.style.top = Math.random()*100 + "vh";
     star.style.animationDuration = (Math.random()*3 + 2) + "s";
+
+    // if star is inside hero height, hide it
+    if (parseFloat(star.style.top) < heroSection.offsetHeight) {
+      star.style.display = "none";
+    }
+
     document.body.appendChild(star);
   }
 
-  // Hero typing effect
+  // Hero typing effect (unchanged)
   const heroText = document.getElementById("hero-text");
   const introText = document.getElementById("intro-text");
-  const name = "HERNAME"; // replace with her name
+  const name = "HERNAME";
   const heroMessage = `Our Story ❤️`;
   const introMessage = `These are some moments I think about more than I admit, especially with you, ${name}.`;
   let i = 0, j = 0;
+
   function typeHero() { 
-    if(i < heroMessage.length){ heroText.innerHTML += heroMessage.charAt(i); i++; setTimeout(typeHero, 100); }
+    if(i < heroMessage.length){
+      heroText.innerHTML += heroMessage.charAt(i);
+      i++;
+      setTimeout(typeHero, 100);
+    }
     else typeIntro();
   }
+
   function typeIntro(){ 
-    if(j < introMessage.length){ introText.innerHTML += introMessage.charAt(j); j++; setTimeout(typeIntro, 40); } 
+    if(j < introMessage.length){
+      introText.innerHTML += introMessage.charAt(j);
+      j++;
+      setTimeout(typeIntro, 40);
+    } 
   }
+
   typeHero();
 </script>
 </body>
