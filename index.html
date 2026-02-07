@@ -5,290 +5,374 @@
 <title>Our Story ❤️</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  color: white;
-  overflow-x: hidden;
-  background: radial-gradient(ellipse at bottom, #0b0c29 0%, #000000 100%);
-}
-
-/* HERO SECTION — FIXED FULL IMAGE */
-.hero {
-  min-height: 100vh;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-  opacity: 0;
-  transform: translateY(30px);
-  transition: all 1s ease;
-}
-
-.hero.show {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.hero::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url("hero-photo.jpg");
-  background-size: cover;       /* THIS FIXES HALF IMAGE ISSUE */
-  background-position: center;  /* centers image */
-  background-repeat: no-repeat;
-  filter: brightness(0.6);
-  z-index: -1;
-}
-
-.hero h1 {
-  font-size: 3rem;
-}
-
-.hero p {
-  font-size: 1.2rem;
-  max-width: 600px;
-}
-
-.scroll-hint {
-  position: absolute;
-  bottom: 20px;
-  font-size: 1.2rem;
-  opacity: 0.7;
-  animation: bounce 1.5s infinite;
-}
-
-@keyframes bounce {
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-10px)}
-}
-
-
-/* PHOTO BLOCK */
-.photo-block {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 40px;
-  margin: 80px 20px;
-  flex-wrap: wrap;
-  opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.8s ease;
-}
-
-.photo-block.show {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.photo-block:nth-child(even) {
-  flex-direction: row-reverse;
-}
-
-/* IMAGE ABOVE STARS */
-.photo-block img {
-  width: 100%;
-  max-width: 500px;
-  border-radius: 20px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-  position: relative;
-  z-index: 2; /* ensures stars stay behind */
-}
-
-.caption {
-  max-width: 400px;
-  font-size: 1.2rem;
-  position: relative;
-  z-index: 2;
-}
-
-/* STARS BEHIND IMAGE */
-.star {
-  position: absolute;
-  width: 3px;
-  height: 3px;
-  background: white;
-  border-radius: 50%;
-  opacity: 0.8;
-  animation: twinkle infinite ease-in-out;
-  pointer-events: none;
-  z-index: 1; /* behind image */
-  box-shadow: 0 0 8px white;
-}
-
-@keyframes twinkle {
-  0%,100%{opacity:0.8}
-  50%{opacity:0.2}
-}
-
-/* FLOATING HEARTS */
-.heart {
-  position: fixed;
-  bottom: -20px;
-  font-size: 20px;
-  animation: floatUp 6s linear infinite;
-}
-
-@keyframes floatUp {
-  0%{transform:translateY(0);opacity:0}
-  20%{opacity:1}
-  100%{transform:translateY(-120vh);opacity:0}
-}
-
-/* FINAL QUESTION */
-.final {
-  margin: 100px 20px 40px;
-  font-size: 1.5rem;
-  text-align: center;
-}
-
-.buttons {
-  position: relative;
-  height: 200px;
-}
-
-button {
-  padding: 15px 35px;
-  font-size: 1.1rem;
-  border: none;
-  border-radius: 30px;
-  cursor: pointer;
-  position: absolute;
-}
-
-#yes {
-  background-color: #4CAF50;
-  color: white;
-  left: 30%;
-}
-
-#no {
-  background-color: #f44336;
-  color: white;
-  left: 55%;
-}
-
-@media(max-width:768px){
-  .photo-block,
-  .photo-block:nth-child(even){
-    flex-direction:column;
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: white;
+    overflow-x: hidden;
+    background: radial-gradient(ellipse at bottom, #0b0c29 0%, #000000 100%);
+    position: relative;
   }
-}
+
+  /* HERO */
+  .hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: url('hero-photo.jpg') center/cover no-repeat;
+    filter: blur(8px) brightness(0.5);
+    z-index: -1;
+  }
+
+  .hero h1 {
+    font-size: 3rem;
+    margin: 0;
+  }
+
+  .hero p {
+    font-size: 1.2rem;
+    max-width: 500px;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 20px;
+    opacity: 0.7;
+    animation: bounce 1.5s infinite;
+  }
+
+  @keyframes bounce {
+    0%,100% { transform: translateY(0);}
+    50% { transform: translateY(-10px);}
+  }
+
+  /* STORY BLOCK */
+  .photo-block {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    margin: 60px 20px;
+    flex-wrap: wrap;
+    position: relative;
+  }
+
+  .photo-block:nth-child(even) {
+    flex-direction: row-reverse;
+  }
+
+  .photo-block img {
+    width: 100%;
+    max-width: 450px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+  }
+
+  .caption {
+    max-width: 400px;
+    font-size: 1.2rem;
+  }
+
+  @media (max-width: 768px) {
+    .photo-block {
+      flex-direction: column !important;
+      text-align: center;
+    }
+  }
+
+  /* FINAL */
+  .final {
+    text-align: center;
+    margin-top: 80px;
+    font-size: 1.5rem;
+  }
+
+  .buttons {
+    position: relative;
+    height: 200px;
+    margin-top: 30px;
+  }
+
+  button {
+    padding: 15px 35px;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    position: absolute;
+  }
+
+  #yes {
+    background-color: #4CAF50;
+    color: white;
+    left: 30%;
+  }
+
+  #no {
+    background-color: #f44336;
+    color: white;
+    left: 55%;
+  }
+
+  /* STARS */
+  .star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: twinkle infinite ease-in-out;
+  }
+
+  @keyframes twinkle {
+    0%,100% { opacity: 0.8;}
+    50% { opacity: 0.2;}
+  }
+
+  /* HEARTS */
+  .heart {
+    position: fixed;
+    bottom: -20px;
+    font-size: 20px;
+    animation: floatUp 6s linear infinite;
+    opacity: 0.7;
+  }
+
+  @keyframes floatUp {
+    0% { transform: translateY(0); opacity: 0;}
+    20% { opacity: 0.8;}
+    100% { transform: translateY(-120vh); opacity: 0;}
+  }
 
 </style>
 </head>
 <body>
 
 <div class="hero">
-<h1>Our Story ❤️</h1>
-<p>These are some moments I think about more than I admit, especially with you, HERNAME.</p>
-<div class="scroll-hint">⬇ Scroll</div>
+  <h1>Our Story ❤️</h1>
+  <p>These are some moments I think about more than I admit, especially with you, HERNAME.</p>
+  <div class="scroll-hint">Scroll down ↓</div>
 </div>
 
+<!-- PHOTO BLOCKS: Replace captions with your personal memories -->
 
-<!-- 25 PHOTOS -->
+<div class="photo-block">
+  <img src="photo1.jpg">
+  <div class="caption">Memory 1 — Write what made this moment special.</div>
+</div>
 
-<div class="photo-block"><img src="photo1.jpg"><div class="caption">Memory 1</div></div>
-<div class="photo-block"><img src="photo2.jpg"><div class="caption">Memory 2</div></div>
-<div class="photo-block"><img src="photo3.jpg"><div class="caption">Memory 3</div></div>
-<div class="photo-block"><img src="photo4.jpg"><div class="caption">Memory 4</div></div>
-<div class="photo-block"><img src="photo5.jpg"><div class="caption">Memory 5</div></div>
-<div class="photo-block"><img src="photo6.jpg"><div class="caption">Memory 6</div></div>
-<div class="photo-block"><img src="photo7.jpg"><div class="caption">Memory 7</div></div>
-<div class="photo-block"><img src="photo8.jpg"><div class="caption">Memory 8</div></div>
-<div class="photo-block"><img src="photo9.jpg"><div class="caption">Memory 9</div></div>
-<div class="photo-block"><img src="photo10.jpg"><div class="caption">Memory 10</div></div>
-<div class="photo-block"><img src="photo11.jpg"><div class="caption">Memory 11</div></div>
-<div class="photo-block"><img src="photo12.jpg"><div class="caption">Memory 12</div></div>
-<div class="photo-block"><img src="photo13.jpg"><div class="caption">Memory 13</div></div>
-<div class="photo-block"><img src="photo14.jpg"><div class="caption">Memory 14</div></div>
-<div class="photo-block"><img src="photo15.jpg"><div class="caption">Memory 15</div></div>
-<div class="photo-block"><img src="photo16.jpg"><div class="caption">Memory 16</div></div>
-<div class="photo-block"><img src="photo17.jpg"><div class="caption">Memory 17</div></div>
-<div class="photo-block"><img src="photo18.jpg"><div class="caption">Memory 18</div></div>
-<div class="photo-block"><img src="photo19.jpg"><div class="caption">Memory 19</div></div>
-<div class="photo-block"><img src="photo20.jpg"><div class="caption">Memory 20</div></div>
-<div class="photo-block"><img src="photo21.jpg"><div class="caption">Memory 21</div></div>
-<div class="photo-block"><img src="photo22.jpg"><div class="caption">Memory 22</div></div>
-<div class="photo-block"><img src="photo23.jpg"><div class="caption">Memory 23</div></div>
-<div class="photo-block"><img src="photo24.jpg"><div class="caption">Memory 24</div></div>
-<div class="photo-block"><img src="photo25.jpg"><div class="caption">Memory 25</div></div>
+<div class="photo-block">
+  <img src="photo2.jpg">
+  <div class="caption">Memory 2 — Something you remember clearly.</div>
+</div>
+
+<div class="photo-block">
+  <img src="photo3.jpg">
+  <div class="caption">Memory 3 — A moment that made you smile.</div>
+</div>
+
+<div class="photo-block">
+  <img src="photo4.jpg">
+  <div class="caption">Memory 4 — What you were thinking here.</div>
+</div>
+
+<div class="photo-block">
+  <img src="photo5.jpg">
+  <div class="caption">Memory 5 — Something funny or meaningful.</div>
+</div>
+
+<div class="photo-block">
+  <img src="photo6.jpg">
+  <div class="caption">Memory 6 — Why this mattered.</div>
+</div>
+
+<div class="photo-block">
+  <img src="photo7.jpg">
+  <div class="caption">Memory 7 — Something you never told her.</div>
+</div>
+
+<div class="photo-block">
+  <img src="photo8.jpg">
+  <div class="caption">Memory 8 — What made this day different.</div>
+</div>
+
+<div class="photo-block">
+  <img src="photo9.jpg">
+  <div class="caption">Memory 9 — A peaceful moment.</div>
+</div>
+
+<div class="photo-block">
+  <img src="photo10.jpg">
+  <div class="caption">Memory 10 — A moment you wish you could relive.</div>
+</div>
+
+<div class="photo-block">
+  <img src="photo11.jpg">
+  <div class="caption">Memory 11 — What you felt here.</div>
+</div>
+
+<div class="photo-block">
+  <img src="photo12.jpg">
+  <div class="caption">Memory 12 — Something you noticed.</div>
+</div>
+
+<div class="photo-block">
+  <img src="photo13.jpg">
+  <div class="caption">Memory 13 — A small but important moment.</div>
+</div>
+
+<div class="photo-block">
+  <img src="photo14.jpg">
+  <div class="caption">Memory 14 — Something unexpected.</div>
+</div>
+
+<div class="photo-block">
+  <img src="photo15.jpg">
+  <div class="caption">Memory 15 — Why you love this photo.</div>
+</div>
+
+<div class="photo-block">
+  <img src="photo16.jpg">
+  <div class="caption">Memory 16 — A moment that stayed with you.</div>
+</div>
+
+<div class="photo-block">
+  <img src="photo17.jpg">
+  <div class="caption">Memory 17 — Something that made you laugh.</div>
+</div>
+
+<div class="photo-block">
+  <img src="photo18.jpg">
+  <div class="caption">Memory 18 — A quiet, meaningful moment.</div>
+</div>
+
+<div class="photo-block">
+  <img src="photo19.jpg">
+  <div class="caption">Memory 19 — Something unforgettable.</div>
+</div>
+
+<div class="photo-block">
+  <img src="photo20.jpg">
+  <div class="caption">Memory 20 — Why this was special.</div>
+</div>
+
+<div class="photo-block">
+  <img src="photo21.jpg">
+  <div class="caption">Memory 21 — What you were feeling.</div>
+</div>
+
+<div class="photo-block">
+  <img src="photo22.jpg">
+  <div class="caption">Memory 22 — Something simple but meaningful.</div>
+</div>
+
+<div class="photo-block">
+  <img src="photo23.jpg">
+  <div class="caption">Memory 23 — A moment you treasure.</div>
+</div>
+
+<div class="photo-block">
+  <img src="photo24.jpg">
+  <div class="caption">Memory 24 — Why you chose this photo.</div>
+</div>
+
+<div class="photo-block">
+  <img src="photo25.jpg">
+  <div class="caption">Memory 25 — And this is only the beginning.</div>
+</div>
 
 
 <div class="final">
-Will you be my Valentine? 💖
+  Will you be my Valentine? 💖
 </div>
 
 <div class="buttons">
-<button id="yes" onclick="yesClicked()">Yes 😍</button>
-<button id="no">No 🙄</button>
+  <button id="yes" onclick="yesClicked()">Yes 😍</button>
+  <button id="no">No 🙄</button>
 </div>
 
 <script>
 
-// runaway button
 const noButton = document.getElementById("no");
 const container = document.querySelector(".buttons");
 
-noButton.addEventListener("mouseover",()=>{
-const x=Math.random()*(container.clientWidth-100);
-const y=Math.random()*(container.clientHeight-50);
-noButton.style.left=x+"px";
-noButton.style.top=y+"px";
+noButton.addEventListener("mouseover", () => {
+
+  const maxX = container.clientWidth - noButton.offsetWidth;
+  const maxY = container.clientHeight - noButton.offsetHeight;
+
+  noButton.style.left = Math.random() * maxX + "px";
+  noButton.style.top = Math.random() * maxY + "px";
+
 });
 
 function yesClicked(){
-document.body.innerHTML=`
-<h1 style="margin-top:30vh;text-align:center;">
-You just made me really happy ❤️
-</h1>`;
+
+document.body.innerHTML = `
+<h1 style="margin-top:25vh;text-align:center;">
+You just made me really happy, HERNAME ❤️
+</h1>
+
+<p style="text-align:center;font-size:1.2rem;">
+I can't wait to make more memories with you.
+</p>
+
+`;
+
 }
 
-
-// animations observer
-const observer=new IntersectionObserver(entries=>{
-entries.forEach(entry=>{
-if(entry.isIntersecting){
-entry.target.classList.add("show");
-
-if(entry.target.classList.contains("photo-block")){
-for(let i=0;i<40;i++){
-const star=document.createElement("div");
-star.className="star";
-star.style.left=Math.random()*100+"%";
-star.style.top=Math.random()*100+"%";
-star.style.animationDuration=(Math.random()*3+2)+"s";
-entry.target.appendChild(star);
-}
-}
-}
-});
-},{threshold:0.2});
-
-observer.observe(document.querySelector(".hero"));
-document.querySelectorAll(".photo-block").forEach(el=>observer.observe(el));
-
-
-// floating hearts
+/* floating hearts */
 setInterval(()=>{
-const heart=document.createElement("div");
+
+const heart = document.createElement("div");
+
 heart.className="heart";
+
 heart.innerHTML="❤️";
+
 heart.style.left=Math.random()*100+"vw";
+
+heart.style.fontSize=(Math.random()*15+15)+"px";
+
 document.body.appendChild(heart);
+
 setTimeout(()=>heart.remove(),6000);
-},600);
+
+},500);
+
+/* stars */
+document.querySelectorAll(".photo-block").forEach(block=>{
+
+for(let i=0;i<20;i++){
+
+const star=document.createElement("div");
+
+star.className="star";
+
+star.style.left=Math.random()*100+"%";
+
+star.style.top=Math.random()*100+"%";
+
+star.style.animationDuration=(Math.random()*3+2)+"s";
+
+block.appendChild(star);
+
+}
+
+});
 
 </script>
 
