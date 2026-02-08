@@ -21,13 +21,12 @@ body {
   height: 2px;
   background: white;
   border-radius: 50%;
-  opacity: 0.8;
+  opacity: .8;
   animation: twinkle infinite ease-in-out;
 }
-
 @keyframes twinkle {
-  0%,100% { opacity: .8; }
-  50% { opacity: .2; }
+  0%,100% {opacity:.8;}
+  50% {opacity:.2;}
 }
 
 /* HERO */
@@ -41,34 +40,28 @@ body {
   position: relative;
   overflow: hidden;
 }
-
 .hero::before {
   content: "";
   position: absolute;
   inset: 0;
   background: url('hero-photo.jpg') center/cover no-repeat;
   filter: blur(8px) brightness(.6);
-  z-index: -1;
   animation: slowZoom 20s ease-in-out infinite alternate;
+  z-index: -1;
 }
-
 @keyframes slowZoom {
-  from { transform: scale(1); }
-  to { transform: scale(1.1); }
+  from {transform: scale(1);}
+  to {transform: scale(1.1);}
 }
 
 .hero h1 {
   font-size: 3rem;
-  margin: 0;
 }
-
 .hero p {
   font-size: 1.2rem;
   max-width: 500px;
-  margin-top: 20px;
 }
 
-/* HERO REVEAL */
 .hero-reveal {
   opacity: 0;
   transform: translateY(30px);
@@ -78,9 +71,7 @@ body {
   opacity: 1;
   transform: translateY(0);
 }
-.hero-reveal.delay {
-  transition-delay: .4s;
-}
+.delay { transition-delay: .4s; }
 
 .scroll-hint {
   position: absolute;
@@ -88,16 +79,16 @@ body {
   opacity: .7;
   animation: bounce 1.5s infinite;
 }
-
 @keyframes bounce {
-  50% { transform: translateY(-10px); }
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-10px)}
 }
 
-/* CHAPTER */
+/* INTRO */
 .chapter-intro {
   height: 50vh;
-  margin: 50px auto;
   max-width: 700px;
+  margin: 50px auto;
   background: rgba(0,0,0,.2);
   border-radius: 20px;
   display: flex;
@@ -107,7 +98,7 @@ body {
   text-align: center;
   opacity: 0;
   transform: translateY(30px);
-  transition: 1s;
+  transition: 1s ease;
 }
 .chapter-intro.show {
   opacity: 1;
@@ -118,34 +109,46 @@ body {
 .photo-block {
   display: flex;
   gap: 40px;
-  margin: 70px 20px;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  margin: 70px 20px;
   flex-wrap: wrap;
   opacity: 0;
   transform: translateY(40px);
-  filter: blur(6px);
-  transition: .8s;
+  transition: .8s ease;
 }
 .photo-block.show {
   opacity: 1;
   transform: translateY(0);
-  filter: blur(0);
 }
 .photo-block:nth-child(even) {
   flex-direction: row-reverse;
 }
-
 .photo-block img {
   max-width: 450px;
   width: 100%;
   border-radius: 20px;
   box-shadow: 0 10px 25px rgba(0,0,0,.3);
 }
-
 .caption {
   max-width: 400px;
   font-size: 1.2rem;
+}
+
+@media (max-width:768px){
+  .photo-block {flex-direction: column;}
+  .caption {text-align:center;}
+}
+
+/* HEARTS */
+.heart {
+  position: fixed;
+  bottom: -20px;
+  animation: floatUp 6s linear infinite;
+}
+@keyframes floatUp {
+  from {transform:translateY(0); opacity:0;}
+  to {transform:translateY(-120vh); opacity:1;}
 }
 
 /* FINAL */
@@ -154,36 +157,20 @@ body {
   font-size: 1.4rem;
   margin: 80px 20px 40px;
 }
-
 .buttons {
   position: relative;
   height: 200px;
 }
-
 button {
   padding: 15px 35px;
-  font-size: 1.1rem;
   border: none;
   border-radius: 30px;
+  font-size: 1.1rem;
   cursor: pointer;
   position: absolute;
 }
-
-#yes { left: 30%; background:#4CAF50; color:white; }
-#no { left: 55%; background:#f44336; color:white; }
-
-/* HEARTS */
-.heart {
-  position: fixed;
-  bottom: -20px;
-  font-size: 20px;
-  animation: floatUp 6s linear infinite;
-  opacity: .7;
-}
-
-@keyframes floatUp {
-  to { transform: translateY(-120vh); opacity: 0; }
-}
+#yes {background:#4CAF50;color:white;left:30%;}
+#no {background:#f44336;color:white;left:55%;}
 </style>
 </head>
 
@@ -202,16 +189,46 @@ button {
 
 <!-- 25 PHOTOS -->
 <script>
-for (let i=1;i<=25;i++){
+const captions = [
+  "This is where it started feeling real.",
+  "I remember thinking how easy this felt.",
+  "Still smiling about this moment.",
+  "One of those moments I didn’t want to rush.",
+  "This moment stays with me, HERNAME.",
+  "A moment I’d gladly relive.",
+  "The little things mattered most.",
+  "That silly laugh I love.",
+  "One spontaneous adventure.",
+  "That smile was just for me.",
+  "Pure joy.",
+  "Quiet but unforgettable.",
+  "This place — us.",
+  "I think about this often.",
+  "The world felt better here.",
+  "This made me realize everything.",
+  "Always makes me smile.",
+  "Time disappeared here.",
+  "An inside joke moment.",
+  "Our secret world.",
+  "Just us laughing.",
+  "So much fun together.",
+  "A moment I’ll always remember.",
+  "Everything felt right.",
+  "Ending on my favorite memory ❤️"
+];
+
+for(let i=1;i<=25;i++){
   document.write(`
-  <div class="photo-block">
-    <img src="photo${i}.jpg">
-    <div class="caption">One of my favorite memories ❤️</div>
-  </div>`);
+    <div class="photo-block">
+      <img src="photo${i}.jpg">
+      <div class="caption">${captions[i-1]}</div>
+    </div>
+  `);
 }
 </script>
 
 <div class="final">
+  So before this becomes just another memory…<br><br>
   Will you be my Valentine? 💖
 </div>
 
@@ -221,41 +238,52 @@ for (let i=1;i<=25;i++){
 </div>
 
 <script>
-const name = "Saku";
+const name = "HERNAME";
 
-/* HERO TEXT */
-heroText.innerHTML = "S & S Story ∞❤️";
-introText.innerHTML = `Every moment that led me to you, ${name}.`;
+/* Hero text */
+document.getElementById("hero-text").innerText = "S & S Story ∞❤️";
+document.getElementById("intro-text").innerText =
+  `Every moment that led me to you, ${name}.`;
 
+/* Hero reveal */
 new IntersectionObserver(e=>{
   if(e[0].isIntersecting){
     document.querySelectorAll('.hero-reveal').forEach(el=>el.classList.add('show'));
   }
 },{threshold:.4}).observe(document.querySelector('.hero'));
 
-/* SCROLL REVEAL */
-document.querySelectorAll('.photo-block, .chapter-intro').forEach(el=>{
+/* Photo reveal */
+document.querySelectorAll('.photo-block').forEach(b=>{
   new IntersectionObserver(e=>{
-    if(e[0].isIntersecting) el.classList.add('show');
-  },{threshold:.2}).observe(el);
+    if(e[0].isIntersecting) b.classList.add('show');
+  },{threshold:.2}).observe(b);
 });
 
-/* NO BUTTON */
-no.addEventListener("mouseover",()=>{
-  no.style.left=Math.random()*60+"%";
-  no.style.top=Math.random()*120+"px";
-});
+/* Intro reveal */
+new IntersectionObserver(e=>{
+  if(e[0].isIntersecting)
+    document.querySelector('.chapter-intro').classList.add('show');
+}).observe(document.querySelector('.chapter-intro'));
 
-/* YES */
+/* No button escape */
+const noBtn=document.getElementById("no");
+const box=document.querySelector(".buttons");
+noBtn.onmouseover=()=>{
+  noBtn.style.left=Math.random()*(box.clientWidth-noBtn.offsetWidth)+"px";
+  noBtn.style.top=Math.random()*(box.clientHeight-noBtn.offsetHeight)+"px";
+};
+
+/* Yes click */
 function yesClicked(){
-  document.body.innerHTML = `
-    <h1 style="margin-top:25vh;text-align:center;">
+  document.body.innerHTML=`
+    <h1 style="margin-top:30vh;text-align:center;">
       You just made me really happy, ${name} ❤️
     </h1>
-    <p style="text-align:center;">Forever starts here.</p>`;
+    <p style="text-align:center;">Happy Valentine’s Day 💌</p>
+  `;
 }
 
-/* HEARTS */
+/* Hearts */
 setInterval(()=>{
   const h=document.createElement("div");
   h.className="heart";
@@ -265,13 +293,13 @@ setInterval(()=>{
   setTimeout(()=>h.remove(),6000);
 },500);
 
-/* STARS */
+/* Stars */
 for(let i=0;i<100;i++){
   const s=document.createElement("div");
   s.className="star";
   s.style.left=Math.random()*100+"vw";
   s.style.top=Math.random()*100+"vh";
-  s.style.animationDuration=Math.random()*3+2+"s";
+  s.style.animationDuration=(Math.random()*3+2)+"s";
   document.body.appendChild(s);
 }
 </script>
