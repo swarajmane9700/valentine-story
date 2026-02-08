@@ -316,14 +316,30 @@
   const heroMessage = `S & S Story ∞❤️`;
   const introMessage = `These are some moments I think about more than I admit, especially with you, ${name}.`;
   let i = 0, j = 0;
-  function typeHero() { 
-    if(i < heroMessage.length){ heroText.innerHTML += heroMessage.charAt(i); i++; setTimeout(typeHero, 100); }
-    else typeIntro();
+ function typeHero() { 
+  if(i < heroMessage.length){
+    heroText.innerHTML += heroMessage.charAt(i);
+    i++;
+    heroText.style.opacity = 1;          // make visible
+    heroText.style.transform = 'translateY(0)';  // slide up
+    setTimeout(typeHero, 100);
+  } else {
+    typeIntro();
   }
-  function typeIntro(){ 
-    if(j < introMessage.length){ introText.innerHTML += introMessage.charAt(j); j++; setTimeout(typeIntro, 40); } 
+}
+
+function typeIntro(){ 
+  if(j < introMessage.length){
+    introText.innerHTML += introMessage.charAt(j);
+    j++;
+    introText.style.opacity = 1;         
+    introText.style.transform = 'translateY(0)';
+    setTimeout(typeIntro, 40);
   }
-  typeHero();
+}
+  typeHero(); // start the typing effect
+
+
 </script>
 </body>
 </html>
