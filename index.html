@@ -1,3 +1,9 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Story</title>
 <style>
   body {
     margin: 0;
@@ -160,7 +166,6 @@
   .photo-block img:nth-child(4) { transform: rotate(3deg);}
   .photo-block img:nth-child(5) { transform: rotate(-2deg);}
   .photo-block img:nth-child(6) { transform: rotate(2deg);}
-  /* continue for 25 photos as needed */
 
   .caption {
     max-width: 400px;
@@ -216,7 +221,7 @@
 <div class="photo-block"><img src="photo2.jpg"><div class="caption">I remember thinking how easy this felt.</div></div>
 <div class="photo-block"><img src="photo3.jpg"><div class="caption">Still smiling about this moment.</div></div>
 <div class="photo-block"><img src="photo4.jpg"><div class="caption">One of those moments I didn’t want to rush.</div></div>
-<div class="photo-block"><img src="photo5.jpg"><div class="caption">This moment stays with me, <strong>HERNAME</strong>.</div></div>
+<div class="photo-block"><img src="photo5.jpg"><div class="caption">This moment stays with me, <strong>Saku</strong>.</div></div>
 <div class="photo-block"><img src="photo6.jpg"><div class="caption">A moment I’d gladly relive.</div></div>
 <div class="photo-block"><img src="photo7.jpg"><div class="caption">Proof that the little things mattered most.</div></div>
 <div class="photo-block"><img src="photo8.jpg"><div class="caption">That silly laugh I’ll never forget.</div></div>
@@ -236,8 +241,7 @@
 <div class="photo-block"><img src="photo22.jpg"><div class="caption">This one reminds me of how much fun we have together.</div></div>
 <div class="photo-block"><img src="photo23.jpg"><div class="caption">I’ll always remember this exact moment.</div></div>
 <div class="photo-block"><img src="photo24.jpg"><div class="caption">Everything felt just right here.</div></div>
-<div class="photo-block"><img src="photo25.jpg"><div class="caption">Ending on the best memory yet, <strong>HERNAME</strong> ❤️</div></div>
-
+<div class="photo-block"><img src="photo25.jpg"><div class="caption">Ending on the best memory yet, <strong>Saku</strong> ❤️</div></div>
 
 <!-- FINAL QUESTION -->
 <div class="final">
@@ -267,7 +271,7 @@
 
   function yesClicked() {
     document.body.innerHTML = `
-      <h1 style="margin-top:25vh; text-align:center;">You just made me really happy, HERNAME ❤️</h1>
+      <h1 style="margin-top:25vh; text-align:center;">You just made me really happy, Saku ❤️</h1>
       <p style="font-size:1.2rem; text-align:center;">I can't wait to make more memories with you.</p>
       <p style="font-size:1.1rem; text-align:center;">Until I can ask you in person…</p>
       <p style="font-size:1.1rem; text-align:center;">Happy Valentine's Day 💌</p>
@@ -312,34 +316,18 @@
   // Hero typing effect
   const heroText = document.getElementById("hero-text");
   const introText = document.getElementById("intro-text");
-  const name = "Saku"; // replace with her name
-  const heroMessage = `S & S Story ∞❤️`;
+  const name = "Saku"; 
+  const heroMessage = `Our Story ❤️`;
   const introMessage = `These are some moments I think about more than I admit, especially with you, ${name}.`;
   let i = 0, j = 0;
- function typeHero() { 
-  if(i < heroMessage.length){
-    heroText.innerHTML += heroMessage.charAt(i);
-    i++;
-    heroText.style.opacity = 1;          // make visible
-    heroText.style.transform = 'translateY(0)';  // slide up
-    setTimeout(typeHero, 100);
-  } else {
-    typeIntro();
+  function typeHero() { 
+    if(i < heroMessage.length){ heroText.innerHTML += heroMessage.charAt(i); i++; setTimeout(typeHero, 100); }
+    else typeIntro();
   }
-}
-
-function typeIntro(){ 
-  if(j < introMessage.length){
-    introText.innerHTML += introMessage.charAt(j);
-    j++;
-    introText.style.opacity = 1;         
-    introText.style.transform = 'translateY(0)';
-    setTimeout(typeIntro, 40);
+  function typeIntro(){ 
+    if(j < introMessage.length){ introText.innerHTML += introMessage.charAt(j); j++; setTimeout(typeIntro, 40); } 
   }
-}
-  typeHero(); // start the typing effect
-
-
+  typeHero();
 </script>
 </body>
 </html>
