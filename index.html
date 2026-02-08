@@ -13,14 +13,15 @@
   body::before { content: ""; position: fixed; top:0; left:0; width:100%; height:100%; z-index:-2; }
 
   .star {
-    position: fixed;
-    width: 2px;
-    height: 2px;
-    background: white;
-    border-radius: 50%;
-    opacity: 0.8;
-    animation: twinkle infinite ease-in-out;
-  }
+  position: fixed;
+  width: 2px;
+  height: 2px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.8;
+  box-shadow: 0 0 8px 2px white; /* soft glow */
+  animation: twinkle infinite ease-in-out;
+}
 
   @keyframes twinkle {
     0%, 100% { opacity: 0.8; transform: scale(1);}
@@ -203,6 +204,12 @@
   <h1>S & S Story ∞❤️</h1>
   <p>These are some moments I think about more than I admit, especially with you, HERNAME.</p>
   <div class="scroll-hint">⬇️ Scroll down to see our story</div>
+</div>
+
+<!-- CHAPTER INTRO -->
+<div class="chapter-intro">
+  <h2>Here Our Journey Begins</h2>
+  <p>From that very first moment, everything felt magical. These are some memories I’ll never forget, HERNAME.</p>
 </div>
 
 <style>
