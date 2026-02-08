@@ -62,6 +62,15 @@
     filter: blur(8px) brightness(0.6);
     z-index: -1;
   }
+  .hero::before {
+  animation: slowZoom 20s ease-in-out infinite alternate;
+}
+
+@keyframes slowZoom {
+  from { transform: scale(1); }
+  to { transform: scale(1.1); }
+}
+
 
   .hero h1 {
     font-size: 3rem;
