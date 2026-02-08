@@ -200,16 +200,77 @@
 
 <!-- HERO SECTION -->
 <div class="hero">
-  <h1 id="hero-text"></h1>
-  <p id="intro-text"></p>
+  <h1>S & S Story ∞❤️</h1>
+  <p>These are some moments I think about more than I admit, especially with you, HERNAME.</p>
   <div class="scroll-hint">⬇️ Scroll down to see our story</div>
 </div>
 
-<!-- CHAPTER INTRO -->
-<div class="chapter-intro">
-  <h2>Here our journey begins… 💫</h2>
-  <p>A story of laughter, love, and unforgettable memories.</p>
-</div>
+<style>
+.hero {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  top:0; left:0; width:100%; height:100%;
+  background: url('hero-photo.jpg') center/cover no-repeat;
+  filter: blur(8px) brightness(0.6);
+  z-index: -1;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin: 0 20px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 1.5s ease;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  max-width: 500px;
+  margin: 20px auto 0;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 1.5s ease 0.5s;
+}
+
+.scroll-hint {
+  position: absolute;
+  bottom: 20px;
+  font-size: 1.2rem;
+  opacity: 0.7;
+  animation: bounce 1.5s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0);}
+  50% { transform: translateY(-10px);}
+}
+</style>
+
+<script>
+window.addEventListener('load', () => {
+  const hero = document.querySelector('.hero');
+  const h1 = hero.querySelector('h1');
+  const p = hero.querySelector('p');
+
+  // Cinematic fade-in effect
+  h1.style.opacity = 1;
+  h1.style.transform = 'translateY(0)';
+  p.style.opacity = 1;
+  p.style.transform = 'translateY(0)';
+});
+</script>
 
 <!-- PHOTOS -->
 <div class="photo-block"><img src="photo1.jpg"><div class="caption">This is where it started feeling real.</div></div>
@@ -309,21 +370,6 @@
     document.body.appendChild(star);
   }
 
-  // Hero typing effect
-  const heroText = document.getElementById("hero-text");
-  const introText = document.getElementById("intro-text");
-  const name = "HERNAME"; // replace with her name
-  const heroMessage = `Our Story ❤️`;
-  const introMessage = `These are some moments I think about more than I admit, especially with you, ${name}.`;
-  let i = 0, j = 0;
-  function typeHero() { 
-    if(i < heroMessage.length){ heroText.innerHTML += heroMessage.charAt(i); i++; setTimeout(typeHero, 100); }
-    else typeIntro();
-  }
-  function typeIntro(){ 
-    if(j < introMessage.length){ introText.innerHTML += introMessage.charAt(j); j++; setTimeout(typeIntro, 40); } 
-  }
-  typeHero();
 </script>
 </body>
 </html>
