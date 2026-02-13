@@ -340,7 +340,7 @@ window.addEventListener('load', () => {
     noButton.style.top = y + "px";
   });
 
- function yesClicked() {
+function yesClicked() {
   document.body.innerHTML = `
 
   <style>
@@ -351,16 +351,13 @@ window.addEventListener('load', () => {
       width: 100%;
       overflow: hidden;
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
-      text-align: center;
       font-family: Arial, sans-serif;
       color: white;
-      padding: 20px;
     }
 
-    /* Blurred background */
+    /* Blurred cinematic background */
     .yes-screen::before {
       content: "";
       position: absolute;
@@ -369,19 +366,41 @@ window.addEventListener('load', () => {
       width:100%;
       height:100%;
       background: url('yes2.jpg') center/cover no-repeat;
-      filter: blur(12px) brightness(0.5);
+      filter: blur(12px) brightness(0.45);
       transform: scale(1.1);
       z-index: -2;
+      animation: slowZoom 12s ease forwards;
     }
 
-    /* Soft pink overlay */
+    /* Soft pink tone */
     .yes-screen::after {
       content:"";
       position:absolute;
       width:100%;
       height:100%;
-      background: rgba(255,182,193,0.2);
+      background: rgba(255,182,193,0.18);
       z-index:-1;
+    }
+
+    @keyframes slowZoom {
+      from { transform: scale(1.1); }
+      to { transform: scale(1.2); }
+    }
+
+    /* Layout */
+    .yes-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 60px;
+      max-width: 1100px;
+      padding: 20px;
+    }
+
+    /* Text center */
+    .yes-text-block {
+      text-align: center;
+      max-width: 500px;
     }
 
     /* Cinematic text animation */
@@ -402,23 +421,40 @@ window.addEventListener('load', () => {
       }
     }
 
-    /* Foreground tilted photo */
+    /* Side photos */
     .yes-photo {
-      position: absolute;
-      bottom: 40px;
-      width: 280px;
+      width: 240px;
       border-radius: 20px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-      transform: rotate(-6deg) scale(0.9);
+      box-shadow: 0 25px 50px rgba(0,0,0,0.6);
       opacity: 0;
       animation: photoReveal 2s ease forwards;
-      animation-delay: 3.5s;
+    }
+
+    .left-photo {
+      transform: rotate(-8deg);
+      animation-delay: 2.5s;
+    }
+
+    .right-photo {
+      transform: rotate(8deg);
+      animation-delay: 3s;
     }
 
     @keyframes photoReveal {
       to {
         opacity: 1;
-        transform: rotate(-6deg) scale(1);
+        transform: rotate(var(--rotate)) scale(1);
+      }
+    }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      .yes-container {
+        flex-direction: column;
+      }
+
+      .yes-photo {
+        width: 200px;
       }
     }
 
@@ -426,23 +462,33 @@ window.addEventListener('load', () => {
 
   <div class="yes-screen">
 
-    <h1 class="yes-text" style="margin-bottom: 20px;">
-      You just made me really happy Sakuu ❤️
-    </h1>
+    <div class="yes-container">
 
-    <p class="yes-text delay1" style="font-size:1.2rem; max-width:700px;">
-      Right now there’s an ocean between us.. Me heree, you in Mumbai, but not for long haan. I’m coming to you soon, baby. ❤️
-    </p>
+      <img src="yes1.jpg" class="yes-photo left-photo">
 
-    <p class="yes-text delay2" style="font-size:1.1rem; max-width:700px;">
-      I can't wait to make more memories with you, I love you soo much!!!
-    </p>
+      <div class="yes-text-block">
 
-    <p class="yes-text delay3" style="font-size:1.1rem; margin-bottom:30px;">
-      Happy Valentine's Day, My everything, My S 💌
-    </p>
+        <h1 class="yes-text" style="margin-bottom:20px;">
+          You just made me really happy Sakuu ❤️
+        </h1>
 
-    <img src="yes1.jpg" class="yes-photo">
+        <p class="yes-text delay1" style="font-size:1.2rem;">
+          Right now there’s an ocean between us.. Me heree, you in Mumbai, but not for long haan. I’m coming to you soon, baby. ❤️
+        </p>
+
+        <p class="yes-text delay2" style="font-size:1.1rem;">
+          I can't wait to make more memories with you, I love you soo much!!!
+        </p>
+
+        <p class="yes-text delay3" style="font-size:1.1rem;">
+          Happy Valentine's Day, My everything, My S 💌
+        </p>
+
+      </div>
+
+      <img src="yes2.jpg" class="yes-photo right-photo">
+
+    </div>
 
     <audio autoplay>
       <source src="song.mp3" type="audio/mpeg">
