@@ -340,14 +340,40 @@ window.addEventListener('load', () => {
     noButton.style.top = y + "px";
   });
 
-  function yesClicked() {
-    document.body.innerHTML = `
-      <h1 style="margin-top:25vh; text-align:center;">You just made me really happy, HERNAME ❤️</h1>
-      <p style="font-size:1.2rem; text-align:center;">I can't wait to make more memories with you.</p>
-      <p style="font-size:1.1rem; text-align:center;">Until I can ask you in person…</p>
-      <p style="font-size:1.1rem; text-align:center;">Happy Valentine's Day 💌</p>
-    `;
-  }
+ function yesClicked() {
+  document.body.innerHTML = `
+    <div style="
+      background: #ffd6e7;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      font-family: Arial, sans-serif;
+      color: #b30059;
+      padding: 20px;
+    ">
+
+      <h1 style="margin-bottom: 20px;">You just made me really happy Sakuu ❤️</h1>
+
+      <p style="font-size:1.2rem;">Right now there’s an ocean between us.. Me heree, you in Mumbai, but not for long haan. I’m coming to you soon, baby. ❤️</p>
+      <p style="font-size:1.1rem;">I can't wait to make more memories with you, I love you soo much!!! .…</p>
+      <p style="font-size:1.1rem; margin-bottom:30px;">Happy Valentine's Day, My everything, My S 💌</p>
+
+      <div style="display:flex; gap:20px; flex-wrap:wrap; justify-content:center;">
+        <img src="yes1.jpg" style="max-width:300px; border-radius:20px; box-shadow:0 10px 25px rgba(0,0,0,0.3);">
+        <img src="yes2.jpg" style="max-width:300px; border-radius:20px; box-shadow:0 10px 25px rgba(0,0,0,0.3);">
+      </div>
+
+      <audio autoplay loop>
+        <source src="song.mp3" type="audio/mpeg">
+      </audio>
+
+    </div>
+  `;
+}
+
 
   // Fade-in scroll
   const blocks = document.querySelectorAll('.photo-block');
