@@ -345,87 +345,84 @@ function yesClicked() {
 
   <style>
 
-    .yes-screen {
-      position: relative;
-      height: 100vh;
-      width: 100%;
-      overflow: hidden;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    body {
+      margin: 0;
       font-family: Arial, sans-serif;
+      overflow: hidden;
       color: white;
     }
 
     /* Blurred cinematic background */
-    .yes-screen::before {
-      content: "";
-      position: absolute;
-      top:0;
-      left:0;
-      width:100%;
-      height:100%;
-      background: url('yes2.jpg') center/cover no-repeat;
-      filter: blur(12px) brightness(0.45);
-      transform: scale(1.1);
+    .yes-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: url('yes-bg.jpg') center/cover no-repeat;
+      filter: blur(10px) brightness(0.6);
       z-index: -2;
-      animation: slowZoom 12s ease forwards;
     }
 
-    /* Soft pink tone */
-    .yes-screen::after {
-      content:"";
-      position:absolute;
-      width:100%;
-      height:100%;
-      background: rgba(255,182,193,0.18);
-      z-index:-1;
+    .yes-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(255,182,193,0.15);
+      z-index: -1;
     }
 
-    @keyframes slowZoom {
-      from { transform: scale(1.1); }
-      to { transform: scale(1.2); }
-    }
-
-    /* Layout */
     .yes-container {
+      height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 60px;
-      max-width: 1100px;
       padding: 20px;
-    }
-
-    /* Text center */
-    .yes-text-block {
       text-align: center;
-      max-width: 500px;
     }
 
-    /* Cinematic text animation */
     .yes-text {
+      max-width: 650px;
+    }
+
+    /* TITLE FONT */
+    .yes-title {
+      font-size: 2.8rem;
+      margin-bottom: 20px;
       opacity: 0;
       transform: translateY(30px);
       animation: fadeUp 2s ease forwards;
     }
 
-    .delay1 { animation-delay: 1s; }
-    .delay2 { animation-delay: 2s; }
-    .delay3 { animation-delay: 3s; }
-
-    @keyframes fadeUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    /* MAIN TEXT FONT */
+    .yes-main-text {
+      font-size: 1.3rem;
+      line-height: 1.6;
+      margin-bottom: 10px;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeUp 2s ease forwards;
+      animation-delay: 1s;
     }
 
-    /* Side photos */
+    /* FINAL TEXT SAME AS TITLE */
+    .yes-final {
+      font-size: 2.2rem;
+      margin-top: 25px;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeUp 2s ease forwards;
+      animation-delay: 2s;
+    }
+
+    /* PHOTOS BIGGER */
     .yes-photo {
-      width: 340px;
+      width: 380px;
       border-radius: 20px;
-      box-shadow: 0 25px 50px rgba(0,0,0,0.6);
+      box-shadow: 0 25px 60px rgba(0,0,0,0.7);
       opacity: 0;
       animation: photoReveal 2s ease forwards;
     }
@@ -440,61 +437,78 @@ function yesClicked() {
       animation-delay: 3s;
     }
 
-    @keyframes photoReveal {
+    /* ANIMATIONS */
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
       to {
         opacity: 1;
-        transform: rotate(var(--rotate)) scale(1);
+        transform: translateY(0);
       }
     }
 
-    /* Mobile */
-    @media (max-width: 768px) {
+    @keyframes photoReveal {
+      from {
+        opacity: 0;
+        transform: scale(0.85);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1) rotate(var(--rotation));
+      }
+    }
+
+    /* Mobile fix */
+    @media (max-width: 900px) {
       .yes-container {
         flex-direction: column;
       }
 
       .yes-photo {
-        width: 200px;
+        width: 260px;
       }
     }
 
   </style>
 
-  <div class="yes-screen">
+  <div class="yes-bg"></div>
+  <div class="yes-overlay"></div>
 
-    <div class="yes-container">
+  <div class="yes-container">
 
-      <img src="yes1.jpg" class="yes-photo left-photo">
+    <img src="yes1.jpg" class="yes-photo left-photo">
 
-      <div class="yes-text-block">
+    <div class="yes-text">
 
-        <h1 class="yes-text" style="margin-bottom:20px;">
-          You just made me really happy Sakuu ❤️
-        </h1>
+      <h1 class="yes-title">
+        You just made me really happy Sakuu ❤️
+      </h1>
 
-        <p class="yes-text delay1" style="font-size:1.2rem;">
-          Right now there’s an ocean between us.. Me heree, you in Mumbai, but not for long haan. I’m coming to you soon, baby. ❤️
-        </p>
+      <p class="yes-main-text">
+        Right now there’s an ocean between us.. Me heree, you in Mumbai, but not for long haan. I’m coming to you soon, baby. ❤️
+      </p>
 
-        <p class="yes-text delay2" style="font-size:1.1rem;">
-          I can't wait to make more memories with you, I love you soo much!!!
-        </p>
+      <p class="yes-main-text">
+        I can't wait to make more memories with you, I love you soo much!!!
+      </p>
 
-        <p class="yes-text delay3" style="font-size:1.1rem;">
-          Happy Valentine's Day, My everything, My S 💌
-        </p>
-
-      </div>
-
-      <img src="yes2.jpg" class="yes-photo right-photo">
+      <p class="yes-final">
+        Happy Valentine's Day, My everything, My S 💌
+      </p>
 
     </div>
 
-    <audio autoplay>
-      <source src="song.mp3" type="audio/mpeg">
-    </audio>
+    <img src="yes2.jpg" class="yes-photo right-photo">
 
   </div>
+
+  <!-- SONG -->
+  <audio autoplay>
+    <source src="song.mp3" type="audio/mpeg">
+  </audio>
 
   `;
 }
